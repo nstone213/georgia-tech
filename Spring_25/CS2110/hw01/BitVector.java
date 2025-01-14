@@ -73,9 +73,11 @@ public class BitVector
      *              0 for the least significant bit (right most bit).
      *              31 for the most significant bit.
      */
-    public void toggle(int index)
-    {
-
+    public void toggle(int index) {
+        if (index < 0 || index > 31) {
+            throw new IllegalArgumentException("Index out of bounds.");
+        }
+        bits ^= (1 << index);
     }
 
     /**
