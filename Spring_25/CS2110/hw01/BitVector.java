@@ -88,9 +88,12 @@ public class BitVector
      * @return true if the bit is set, false if the bit is clear.
      *         If the index is out of range (index >= 32), then return false.
      */
-    public boolean isSet(int index)
-    {
-        return false;
+    public boolean isSet(int index) {
+        if (index < 0 || index > 31) {
+            return false;
+        }
+
+        return (bits & (1 << index)) != 0;
     }
 
     /**
