@@ -30,8 +30,7 @@
  * - Looping and conditionals as described above are only allowed for:
  *   onesCount, trailingZerosCount.
  */
-public class BitVector
-{
+public class BitVector {
     /**
      * 32-bit data initialized to all zeros. Here is what you will be using to
      * represent the Bit Vector. Do not change its scope from private.
@@ -47,9 +46,6 @@ public class BitVector
      *              31 for the most significant bit.
      */
     public void set(int index) {
-        if (index < 0 || index > 31) {
-            throw new IllegalArgumentException("Index out of bounds.");
-        }
         bits |= (1 << index);
     }
 
@@ -60,9 +56,6 @@ public class BitVector
      *              31 for the most significant bit.
      */
     public void clear(int index) {
-        if (index < 0 || index > 31) {
-            throw new IllegalArgumentException("Index out of bounds.");
-        }
         bits &= ~(1 << index);
     }
 
@@ -74,9 +67,6 @@ public class BitVector
      *              31 for the most significant bit.
      */
     public void toggle(int index) {
-        if (index < 0 || index > 31) {
-            throw new IllegalArgumentException("Index out of bounds.");
-        }
         bits ^= (1 << index);
     }
 
@@ -89,11 +79,7 @@ public class BitVector
      *         If the index is out of range (index >= 32), then return false.
      */
     public boolean isSet(int index) {
-        if (index < 0 || index > 31) {
-            return false;
-        }
-
-        return (bits & (1 << index)) != 0;
+        return (index >= 0 && index < 32) && (bits & (1 << index)) != 0;
     }
 
     /**
@@ -105,11 +91,7 @@ public class BitVector
      *         If the index is out of range (index >= 32), then return true.
      */
     public boolean isClear(int index) {
-        if (index < 0 || index > 31) {
-            return false;
-        }
-
-        return (bits & (1 << index)) == 0;
+        return ((index & ~31) == 0) && ((bits & (1 << index)) == 0);
     }
 
      /**
@@ -122,10 +104,7 @@ public class BitVector
      * @return true if there is a 16-bit pattern, false if not.
      */
     public boolean isPattern() {
-        int high = (bits >> 16) & 0xFFFF;
-        int low = bits & 0xFFFF;
-
-        return high == low;
+        return false;
     }
 
     /**
@@ -138,7 +117,7 @@ public class BitVector
 
         for (int i = 0; i < 32; i++) {
             if ((bits & (1 << i)) != 0) {
-                count++;
+                counter++;
             }
         }
 
@@ -155,6 +134,18 @@ public class BitVector
      * @return the number of trailing zeroes.
      */
     public int trailingZerosCount() {
-        return 0;
+        int count = 0;
+        
+        if (bits == 0) {
+            return 0;
+        }
+        int leastSignificantBit = bits & -bits;
+        
+        while ((leastSignificantBit & 1) == 0) {
+            count++;
+            leastSignificantBit >>= 1;
+        }
+        
+        return count;
     }
 }
