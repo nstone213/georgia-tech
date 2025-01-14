@@ -121,9 +121,8 @@ public class BitVector
      * Ex: 01100010000111010110001000011101 -> true
      * @return true if there is a 16-bit pattern, false if not.
      */
-    public boolean isPattern()
-    {
-        return false;
+    public boolean isPattern() {
+        //NOT DONE
     }
 
     /**
