@@ -104,9 +104,12 @@ public class BitVector
      * @return true if the bit is clear, false if the bit is set.
      *         If the index is out of range (index >= 32), then return true.
      */
-    public boolean isClear(int index)
-    {
-        return false;
+    public boolean isClear(int index) {
+        if (index < 0 || index > 31) {
+            return false;
+        }
+
+        return (bits & (1 << index)) == 0;
     }
 
      /**
