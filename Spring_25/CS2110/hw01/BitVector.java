@@ -133,8 +133,7 @@ public class BitVector
      * You may use the ++ operator to increment your counter.
      * @return the number of ones.
      */
-    public int onesCount()
-    {
+    public int onesCount() {
         return 0;
     }
 
@@ -147,8 +146,7 @@ public class BitVector
      * Ex: 01010...0100000000 -> 8
      * @return the number of trailing zeroes.
      */
-    public int trailingZerosCount()
-    {
+    public int trailingZerosCount() {
         return 0;
     }
 }
