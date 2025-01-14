@@ -134,7 +134,15 @@ public class BitVector
      * @return the number of ones.
      */
     public int onesCount() {
-        return 0;
+        int counter = 1;
+
+        for (int i = 0; i < 32; i++) {
+            if ((bits & (1 << i)) != 0) {
+                count++;
+            }
+        }
+
+        return counter;
     }
 
      /**
