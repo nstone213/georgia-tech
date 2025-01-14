@@ -2,7 +2,7 @@
  * CS 2110 Spring 2025 HW1
  * Part 1 - Coding a bit vector
  *
- * @author YOUR NAME HERE
+ * @author Nicholas Stone
 
  * Global rules for this file:
  * - You may not use multiplication, division or modulus in any method.
@@ -46,9 +46,11 @@ public class BitVector
      *              0 for the least significant bit (right most bit).
      *              31 for the most significant bit.
      */
-    public void set(int index)
-    {
-
+    public void set(int index) {
+        if (index < 0 || index > 31) {
+            throw new IllegalArgumentException("Index out of bounds.");
+        }
+        bits |= (1 << index);
     }
 
     /**
@@ -57,9 +59,11 @@ public class BitVector
      *              0 for the least significant bit (right most bit).
      *              31 for the most significant bit.
      */
-    public void clear(int index)
-    {
-
+    public void clear(int index) {
+        if (index < 0 || index > 31) {
+            throw new IllegalArgumentException("Index out of bounds.");
+        }
+        bits &= ~(1 << index);
     }
 
     /**
