@@ -53,7 +53,11 @@ public class Bases
      * Example: decimalStringToInt("46"); // => 46
      */
     public static int decimalStringToInt(String decimal) {
-        return 0;
+        int result = 0;
+        for (int i = 0; i < decimal.length(); i++) {
+            result = (result << 3) + (result << 1) + (decimal.charAt(i) - '0');
+        }
+        return result;
     }
 
     /**
