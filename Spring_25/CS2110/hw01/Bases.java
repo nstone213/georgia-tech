@@ -2,7 +2,7 @@
  * CS 2110 Spring 2025 HW1
  * Part 2 - Coding with bases
  *
- * @author YOUR NAME HERE
+ * @author Nicholas Stone
  *
  * Global rules for this file:
  * 
