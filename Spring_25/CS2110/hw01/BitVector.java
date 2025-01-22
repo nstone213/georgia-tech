@@ -104,9 +104,7 @@ public class BitVector {
      * @return true if there is a 16-bit pattern, false if not.
      */
     public boolean isPattern() {
-        int lower = bits & 0xFFFF;
-        int upper = (bits >>> 16) & 0xFFFF;
-        return lower == upper;
+        return (bits & 0xFFFF) == (bits >> 16);
     }
 
     /**
