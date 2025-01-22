@@ -37,7 +37,11 @@ public class Bases
      * Example: binaryStringToInt("110"); // => 6
      */
     public static int binaryStringToInt(String binary) {
-        return 0;
+        int result = 0;
+        for (int i = 0; i < binary.length(); i++) {
+            result = (result << 1) + (binary.charAt(i) - '0');
+        }
+        return result;
     }
 
     /**
