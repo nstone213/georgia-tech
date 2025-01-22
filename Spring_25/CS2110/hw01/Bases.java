@@ -36,8 +36,7 @@ public class Bases
      *
      * Example: binaryStringToInt("110"); // => 6
      */
-    public static int binaryStringToInt(String binary)
-    {
+    public static int binaryStringToInt(String binary) {
         return 0;
     }
 
@@ -49,8 +48,7 @@ public class Bases
      *
      * Example: decimalStringToInt("46"); // => 46
      */
-    public static int decimalStringToInt(String decimal)
-    {
+    public static int decimalStringToInt(String decimal) {
         return 0;
     }
 
@@ -62,10 +60,9 @@ public class Bases
      *
      */
 
-     public static String octalStringToBinaryString(String octal)
-     {
+    public static String octalStringToBinaryString(String octal) {
         return "";
-     }
+    }
  
      /**
       * Convert a string containing ASCII characters (in hex) to an int.
@@ -75,10 +72,9 @@ public class Bases
       *
       * Example: hexStringToInt("A6"); // => 166
       */
-     public static int hexStringToInt(String hex)
-     {
+    public static int hexStringToInt(String hex) {
         return 0;
-     }
+    }
  
      /**
       * Convert a String containing ASCII characters representing a number in
@@ -93,9 +89,8 @@ public class Bases
       * Example: binaryStringToHexString("00001111001100101010011001011100"); // => "0F32A65C"
       * 
       */
-     public static String binaryStringToHexString(String binary)
-     {
+    public static String binaryStringToHexString(String binary) {
         return "";
-     }
+    }
  }
  
