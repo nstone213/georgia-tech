@@ -136,16 +136,14 @@ public class BitVector {
      * @return the number of trailing zeroes.
      */
     public int trailingZerosCount() {
+        if (bits == 0) return 32;
+        
         int count = 0;
+        int value = bits;
         
-        if (bits == 0) {
-            return 0;
-        }
-        int leastSignificantBit = bits & -bits;
-        
-        while ((leastSignificantBit & 1) == 0) {
+        while ((value & 1) == 0) {
             count++;
-            leastSignificantBit >>= 1;
+            value >>= 1;
         }
         
         return count;
