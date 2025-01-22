@@ -91,7 +91,7 @@ public class BitVector {
      *         If the index is out of range (index >= 32), then return true.
      */
     public boolean isClear(int index) {
-        return ((index & ~31) == 0) && ((bits & (1 << index)) == 0);
+        return (index < 0 || index >= 32) || ((bits & (1 << index)) == 0);
     }
 
      /**
