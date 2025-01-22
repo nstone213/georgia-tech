@@ -141,7 +141,7 @@ public class BitVector {
         
         while ((value & 1) == 0) {
             count++;
-            value >>= 1;
+            value >>>= 1; // Unsigned shift
         }
         
         return count;
