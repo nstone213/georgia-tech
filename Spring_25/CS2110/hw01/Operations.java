@@ -122,7 +122,7 @@ public class Operations {
     /**
      * Place a short within another short.
      * 
-     * The short being inserted (s1) should be placed between the two bytes of the other short (s2)
+     * The short being inserted (s2) should be placed between the two bytes of the other short (s1)
      * 
      * Examples:
      * 
@@ -134,7 +134,7 @@ public class Operations {
      * @return a 32-bit value containing one short 
      */
     int insertShort(int s1, int s2) {
-        return (s1 << 16) | (s2 & 0xFFFF);
+        return ((s1 & 0xFF) | (s2 << 8) | (s1 & 0xFF00) << 16);
     }
 
     /**

@@ -26,8 +26,7 @@
  * - When concatenating numbers with Strings, you may only do so if the number
  *   is a single digit.
  */
-public class Bases
-{
+public class Bases {
     /**
      * Convert a String containing ASCII characters (in binary) to an int.
      *
@@ -69,20 +68,17 @@ public class Bases
      */
     public static String octalStringToBinaryString(String octal) {
         String result = "";
-        String[] binLookup = {"000", "001", "010", "011", "100", "101", "110", "111"};
-        boolean leadingZero = true;
-        
-        for (int i = 0; i < octal.length(); i++) {
-            String bin = binLookup[octal.charAt(i) - '0'];
-            if (leadingZero) {
-                bin = bin.replaceFirst("^0+", "");
-                if (!bin.isEmpty()) {
-                    leadingZero = false;
-                }
+        int i = 0;
+        while (i < octal.length()) {
+            int digit = octal.charAt(i) - '0';
+            int mask = 4;
+            while (mask > 0) {
+                result += (digit & mask) != 0 ? "1" : "0";
+                mask >>= 1;
             }
-            result += bin;
+            i++;
         }
-        return result.isEmpty() ? "0" : result;
+        return result;
     }
  
      /**
