@@ -2,7 +2,7 @@
  * CS 2110 Spring 2025 HW1
  * Part 3 - Coding with bitwise operators
  *
- * @author YOUR NAME HERE
+ * @author Nicholas Stone
  *
  * Global rules for this file:
  * - All of these functions must be completed in ONE line. That means they

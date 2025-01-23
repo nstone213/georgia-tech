@@ -1,0 +1,11 @@
+Bases.java: 
+	binaryStringToInt: 5.0/5.0
+	decimalStringToInt: 5.0/5.0
+	octalStringToBinaryString: 0.0/5.0
+		[fail] Failed test case for method octalStringToBinaryString. Arguments [2626171]; Expected return value: 10110010110001111001; Actual: 10001111001
+		(-3.75) Violations:
+			More than 2 conditionals
+			Disallowed method invocation
+	hexStringToInt: 5.0/5.0
+	binaryStringToHexString: 5.0/5.0
+Final Grade: 20.0/25.0

@@ -113,15 +113,13 @@ public class BitVector {
      * @return the number of ones.
      */
     public int onesCount() {
-        int counter = 0;
-
+        int nums = 0;
         for (int i = 0; i < 32; i++) {
             if ((bits & (1 << i)) != 0) {
-                counter++;
+                nums++;
             }
         }
-
-        return counter;
+        return nums;
     }
 
      /**
@@ -134,12 +132,12 @@ public class BitVector {
      * @return the number of trailing zeroes.
      */
     public int trailingZerosCount() {
-        int count = 0;
+        int counter = 0;
         int n = bits;
-        while ((n & 1) == 0 && count < 32) {
-            count++;
+        while ((n & 1) == 0 && counter < 32) {
+            counter++;
             n >>= 1;
         }
-        return count;
+        return counter;
     }
 }

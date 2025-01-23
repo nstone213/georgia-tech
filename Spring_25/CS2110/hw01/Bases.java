@@ -67,21 +67,24 @@ public class Bases {
      *
      */
     public static String octalStringToBinaryString(String octal) {
+        int dec = 0;
+        for (int i = 0; i < octal.length(); i++) {
+            dec = (dec << 3) + (octal.charAt(i) - '0');
+        }
+        if (dec == 0) {
+            return "0";
+        }
         String result = "";
-        int i = 0;
-        while (i < octal.length()) {
-            int digit = octal.charAt(i) - '0';
-            int mask = 4;
-            while (mask > 0) {
-                result += (digit & mask) != 0 ? "1" : "0";
-                mask >>= 1;
-            }
-            i++;
+        boolean bool = false;
+        for (int i = 31; i >= 0; i--) {
+            int bit = (dec >> i) & 1;
+            bool |= bit != 0;
+            result += bool ? (char) ('0' + bit) : "";
         }
         return result;
     }
  
-     /**
+     /*
       * Convert a string containing ASCII characters (in hex) to an int.
       * The input string will only contain numbers and uppercase letters A-F.
       * You do not need to handle negative numbers. The Strings we will pass in will be
@@ -92,9 +95,9 @@ public class Bases {
      public static int hexStringToInt(String hex) {
         int result = 0;
         for (int i = 0; i < hex.length(); i++) {
-            char c = hex.charAt(i);
-            int value = (c >= 'A') ? (c - 'A' + 10) : (c - '0');
-            result = (result << 4) + value;
+            char chars = hex.charAt(i);
+            int val = (chars >= 'A') ? (chars - 'A' + 10) : (chars - '0');
+            result = (result << 4) + val;
         }
         return result;
     }
@@ -113,14 +116,11 @@ public class Bases {
       * 
       */
     public static String binaryStringToHexString(String binary) {
-        String hexChars = "0123456789ABCDEF";
+        String hex = "0123456789ABCDEF";
         String result = "";
         for (int i = 0; i < 32; i += 4) {
-            int value = (binary.charAt(i) - '0') << 3 |
-                        (binary.charAt(i + 1) - '0') << 2 |
-                        (binary.charAt(i + 2) - '0') << 1 |
-                        (binary.charAt(i + 3) - '0');
-            result += hexChars.charAt(value);
+            int value = (binary.charAt(i) - '0') << 3 | (binary.charAt(i + 1) - '0') << 2 | (binary.charAt(i + 2) - '0') << 1 | (binary.charAt(i + 3) - '0');
+            result += hex.charAt(value);
         }
         return result;
     }
