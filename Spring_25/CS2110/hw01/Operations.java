@@ -47,8 +47,7 @@
  * short  - 16 bits
  * int    - 32 bits
  */
-public class Operations
-{
+public class Operations {
 
     /**
      * Reverse the sign of an int.
@@ -59,9 +58,8 @@ public class Operations
      *
      * @return The int with the sign reversed
      */
-    int changeSign(int num)
-    {
-        return 0;
+    int changeSign(int num) {
+        return ~num + 1;
     }
 
 
@@ -91,9 +89,8 @@ public class Operations
      *
      * @return A byte corresponding to the "which" parameter from num.
      */
-    int getByte(int num, int which)
-    {
-        return 0;
+    int getByte(int num, int which) {
+        return (num >> (which << 3)) & 0xFF;
     }
 
     /**
@@ -117,9 +114,8 @@ public class Operations
      * @param num
      * @return The int with the bytes moved leftward circularly
      */
-    int circularLeftShiftBytes(int num) 
-    {
-        return 0;
+    int circularLeftShiftBytes(int num) {
+        return (num << 8) | ((num >> 24) & 0xFF);
     }
 
 
@@ -137,9 +133,8 @@ public class Operations
      * @param s2
      * @return a 32-bit value containing one short 
      */
-    int insertShort(int s1, int s2)
-    {
-        return 0;
+    int insertShort(int s1, int s2) {
+        return (s1 << 16) | (s2 & 0xFFFF);
     }
 
     /**
@@ -170,9 +165,8 @@ public class Operations
      * @param n The number of bits to return.
      * @return The n-bit number num[s:s+n-1].
      */
-    int bitRange(int num, int s, int n)
-    {
-        return 0;
+    int bitRange(int num, int s, int n) {
+        return (num >> s) & ~(~0 << n);
     }
 
     /**
@@ -189,9 +183,8 @@ public class Operations
      *
      * @return num1 XOR num2
      */
-    int xor(int num1, int num2)
-    {
-        return 0;
+    int xor(int num1, int num2) {
+        return (num1 | num2) & ~(num1 & num2);
     }
 
     /**
@@ -207,9 +200,8 @@ public class Operations
      * @return true if num is a multiple of 2, else false.
      */
 
-    boolean multipleOf2(int num)
-    {
-        return false;
+    boolean multipleOf2(int num) {
+        return (num & 1) == 0;
     }
 
     /**
@@ -228,9 +220,8 @@ public class Operations
      * @return true if num is a multiple of 64, else false.
      */
 
-     boolean multipleOf64(int num)
-     {
-        return false;
+     boolean multipleOf64(int num) {
+        return (num & 63) == 0;
      }
 
     /**
@@ -253,8 +244,7 @@ public class Operations
      * @return true if num is a multiple of 2, else false.
      */
 
-    boolean powerOf2(int num)
-    {
-        return false;
+    boolean powerOf2(int num) {
+        return (num > 0) & ((num & (num - 1)) == 0);
     }
 }

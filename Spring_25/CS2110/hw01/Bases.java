@@ -70,11 +70,19 @@ public class Bases
     public static String octalStringToBinaryString(String octal) {
         String result = "";
         String[] binLookup = {"000", "001", "010", "011", "100", "101", "110", "111"};
+        boolean leadingZero = true;
         
         for (int i = 0; i < octal.length(); i++) {
-            result += binLookup[octal.charAt(i) - '0'];
+            String bin = binLookup[octal.charAt(i) - '0'];
+            if (leadingZero) {
+                bin = bin.replaceFirst("^0+", "");
+                if (!bin.isEmpty()) {
+                    leadingZero = false;
+                }
+            }
+            result += bin;
         }
-        return result;
+        return result.isEmpty() ? "0" : result;
     }
  
      /**
@@ -109,7 +117,16 @@ public class Bases
       * 
       */
     public static String binaryStringToHexString(String binary) {
-        return "";
+        String hexChars = "0123456789ABCDEF";
+        String result = "";
+        for (int i = 0; i < 32; i += 4) {
+            int value = (binary.charAt(i) - '0') << 3 |
+                        (binary.charAt(i + 1) - '0') << 2 |
+                        (binary.charAt(i + 2) - '0') << 1 |
+                        (binary.charAt(i + 3) - '0');
+            result += hexChars.charAt(value);
+        }
+        return result;
     }
  }
  
