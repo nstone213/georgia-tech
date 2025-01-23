@@ -67,9 +67,14 @@ public class Bases
      * Example: octalStringToBinaryString("52"); // => "101010"
      *
      */
-
     public static String octalStringToBinaryString(String octal) {
-        return "";
+        String result = "";
+        String[] binLookup = {"000", "001", "010", "011", "100", "101", "110", "111"};
+        
+        for (int i = 0; i < octal.length(); i++) {
+            result += binLookup[octal.charAt(i) - '0'];
+        }
+        return result;
     }
  
      /**
