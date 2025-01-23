@@ -85,8 +85,14 @@ public class Bases
       *
       * Example: hexStringToInt("A6"); // => 166
       */
-    public static int hexStringToInt(String hex) {
-        return 0;
+     public static int hexStringToInt(String hex) {
+        int result = 0;
+        for (int i = 0; i < hex.length(); i++) {
+            char c = hex.charAt(i);
+            int value = (c >= 'A') ? (c - 'A' + 10) : (c - '0');
+            result = (result << 4) + value;
+        }
+        return result;
     }
  
      /**
