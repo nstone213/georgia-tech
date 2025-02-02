@@ -8,9 +8,9 @@ df = pd.read_csv(file_path)
 plt.figure(figsize=(10, 6))
 sns.scatterplot(
     data=df,
-    x="Age",                # Replace with actual column name if different
-    y="Fasting_Blood_Sugar",  # Replace with actual column name
-    hue="Diabetes_Status",         # Replace with actual diabetes status column (Yes/No)
+    x="Age",
+    y="Fasting_Blood_Sugar",
+    hue="Diabetes_Status",
     palette={"Yes": "red", "No": "blue"}
 )
 
