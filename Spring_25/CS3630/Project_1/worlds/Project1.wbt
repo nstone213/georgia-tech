@@ -7,8 +7,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.00023150132999063554 0.9999995049034375 -0.000967780974238403 0.4570493722753707
-  position -3.280769807692098 -0.007119310527270939 1.680560934847412
+  orientation 0.12253312685844019 0.2228437718864341 -0.9671226841273657 1.0339292739865875
+  position -0.10733929547916066 -0.15603480246612045 -1.773207521471776
 }
 TexturedBackground {
 }
@@ -44,8 +44,8 @@ Floor {
   size 2 2
 }
 DEF E-PUCK Robot {
-  translation -5.28893223764321e-15 1.771112721470615e-11 -3.095040259200495e-05
-  rotation 0.9999744979382094 0.007141671591436101 -3.2551793324346314e-07 2.7621373003809408e-09
+  translation -2.455091563551656e-11 1.7710160634123367e-11 -3.198082771908861e-05
+  rotation 0.978016559631221 0.20852723823768837 -2.6983199075943676e-07 2.810102747527763e-09
   children [
     Lidar {
       translation 0 0 0.058
@@ -66,7 +66,7 @@ DEF E-PUCK Robot {
       type "rotating"
       defaultFrequency 2
       rotatingHead Lidar {
-        rotation 0 0 -1 0.3015928947446168
+        rotation 0 0 -0.9999999999999999 0.5026548245743635
         fieldOfView 0.017453
         numberOfLayers 1
         maxRange 1.5
@@ -74,7 +74,7 @@ DEF E-PUCK Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 3.119824865616891e-13
+        position -1.535244092672735e-08
         axis 0 1 0
         anchor 0 0 0.02
       }
@@ -227,7 +227,7 @@ DEF E-PUCK Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 3.153590084869973e-13
+        position -1.535242559521568e-08
         axis 0 1 0
         anchor 0 0 0.02
       }
@@ -1642,6 +1642,8 @@ DEF E-PUCK Robot {
   }
   controller "proj1_vision_only_controller"
   cpuConsumption 1.11
+  linearVelocity -2.081223077402243e-09 -2.6125091046807532e-15 -2.661115085307424e-09
+  angularVelocity 3.403556231396257e-14 6.593485010344939e-08 3.481509297759539e-14
 }
 DEF Sphere Solid {
   translation 1.37871 1.19648 0.058
