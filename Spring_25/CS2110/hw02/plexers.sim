@@ -11,25 +11,25 @@
           "x": 1,
           "y": 1,
           "properties": {
-            "Text": "Name: *EDIT ME*"
+            "Text": "Name: Nicholas Stone"
           }
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 24,
-          "y": 61,
+          "x": 12,
+          "y": 7,
           "properties": {
-            "Label location": "SOUTH",
+            "Label location": "NORTH",
             "Label": "SEL",
             "Is input?": "Yes",
-            "Direction": "NORTH",
+            "Direction": "SOUTH",
             "Bitsize": "3"
           }
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 4,
+          "x": 10,
+          "y": 16,
           "properties": {
             "Label location": "WEST",
             "Label": "A",
@@ -40,8 +40,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 11,
+          "x": 10,
+          "y": 22,
           "properties": {
             "Label location": "WEST",
             "Label": "B",
@@ -52,8 +52,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 17,
+          "x": 10,
+          "y": 28,
           "properties": {
             "Label location": "WEST",
             "Label": "C",
@@ -64,8 +64,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 23,
+          "x": 10,
+          "y": 34,
           "properties": {
             "Label location": "WEST",
             "Label": "D",
@@ -76,8 +76,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 29,
+          "x": 10,
+          "y": 40,
           "properties": {
             "Label location": "WEST",
             "Label": "E",
@@ -88,8 +88,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 35,
+          "x": 10,
+          "y": 46,
           "properties": {
             "Label location": "WEST",
             "Label": "F",
@@ -100,8 +100,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 41,
+          "x": 10,
+          "y": 52,
           "properties": {
             "Label location": "WEST",
             "Label": "G",
@@ -112,8 +112,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 13,
-          "y": 48,
+          "x": 10,
+          "y": 58,
           "properties": {
             "Label location": "WEST",
             "Label": "H",
@@ -124,8 +124,8 @@
         },
         {
           "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
-          "x": 57,
-          "y": 25,
+          "x": 62,
+          "y": 37,
           "properties": {
             "Label location": "EAST",
             "Label": "out",
@@ -133,9 +133,1006 @@
             "Direction": "WEST",
             "Bitsize": "1"
           }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.OrGatePeer",
+          "x": 51,
+          "y": 36,
+          "properties": {
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1",
+            "Negate 1": "No",
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Negate 3": "No",
+            "Negate 2": "No",
+            "Negate 5": "No",
+            "Number of Inputs": "8",
+            "Negate 4": "No",
+            "Negate 7": "No",
+            "Negate 6": "No"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 15,
+          "properties": {
+            "Negate 1": "Yes",
+            "Label location": "NORTH",
+            "Negate 0": "Yes",
+            "Negate 3": "Yes",
+            "Negate 2": "Yes",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 21,
+          "properties": {
+            "Negate 1": "Yes",
+            "Label location": "NORTH",
+            "Negate 0": "Yes",
+            "Negate 3": "Yes",
+            "Negate 2": "No",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 27,
+          "properties": {
+            "Negate 1": "No",
+            "Label location": "NORTH",
+            "Negate 0": "Yes",
+            "Negate 3": "Yes",
+            "Negate 2": "Yes",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 39,
+          "properties": {
+            "Negate 1": "Yes",
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Negate 3": "Yes",
+            "Negate 2": "Yes",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 33,
+          "properties": {
+            "Negate 1": "No",
+            "Label location": "NORTH",
+            "Negate 0": "Yes",
+            "Negate 3": "Yes",
+            "Negate 2": "No",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 45,
+          "properties": {
+            "Negate 1": "Yes",
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Negate 3": "Yes",
+            "Negate 2": "No",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 51,
+          "properties": {
+            "Negate 1": "No",
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Negate 3": "Yes",
+            "Negate 2": "Yes",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 22,
+          "y": 57,
+          "properties": {
+            "Negate 1": "No",
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Negate 3": "Yes",
+            "Negate 2": "No",
+            "Number of Inputs": "4",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 13,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 19,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 25,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 31,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 37,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 43,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 49,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 19,
+          "y": 55,
+          "properties": {
+            "Label location": "NORTH",
+            "Fanouts": "3",
+            "Input location": "Left/Top",
+            "Label": "",
+            "Bit 2": "2",
+            "Direction": "EAST",
+            "Bit 1": "1",
+            "Bitsize": "3",
+            "Bit 0": "0"
+          }
         }
       ],
-      "wires": []
+      "wires": [
+        {
+          "x": 12,
+          "y": 16,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 17,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 12,
+          "y": 23,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 23,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 12,
+          "y": 29,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 29,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 12,
+          "y": 35,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 35,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 9,
+          "length": 4,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 41,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 41,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 13,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 13,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 47,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 47,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 19,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 19,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 53,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 53,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 25,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 25,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 12,
+          "y": 59,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 31,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 31,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 13,
+          "y": 37,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 37,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 13,
+          "y": 43,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 43,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 13,
+          "y": 49,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 13,
+          "y": 49,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 13,
+          "y": 55,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 17,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 18,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 23,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 24,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 29,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 30,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 35,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 36,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 41,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 42,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 47,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 48,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 18,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 20,
+          "y": 19,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 53,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 54,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 24,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 20,
+          "y": 25,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 19,
+          "y": 59,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 19,
+          "y": 60,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 30,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 20,
+          "y": 31,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 36,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 20,
+          "y": 37,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 42,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 20,
+          "y": 43,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 15,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 16,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 48,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 17,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 18,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 49,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 21,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 22,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 54,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 23,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 24,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 55,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 27,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 28,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 29,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 20,
+          "y": 60,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 30,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 61,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 33,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 34,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 35,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 36,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 39,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 40,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 41,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 42,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 45,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 46,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 47,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 48,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 51,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 52,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 53,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 54,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 57,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 58,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 21,
+          "y": 59,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 21,
+          "y": 60,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 17,
+          "length": 23,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 23,
+          "length": 22,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 29,
+          "length": 21,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 35,
+          "length": 20,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 41,
+          "length": 20,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 47,
+          "length": 21,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 53,
+          "length": 22,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 59,
+          "length": 23,
+          "isHorizontal": true
+        },
+        {
+          "x": 47,
+          "y": 35,
+          "length": 2,
+          "isHorizontal": false
+        },
+        {
+          "x": 47,
+          "y": 37,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 47,
+          "y": 39,
+          "length": 2,
+          "isHorizontal": false
+        },
+        {
+          "x": 47,
+          "y": 39,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 48,
+          "y": 29,
+          "length": 7,
+          "isHorizontal": false
+        },
+        {
+          "x": 48,
+          "y": 36,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 48,
+          "y": 40,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 48,
+          "y": 40,
+          "length": 7,
+          "isHorizontal": false
+        },
+        {
+          "x": 49,
+          "y": 23,
+          "length": 12,
+          "isHorizontal": false
+        },
+        {
+          "x": 49,
+          "y": 35,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 49,
+          "y": 41,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 49,
+          "y": 41,
+          "length": 12,
+          "isHorizontal": false
+        },
+        {
+          "x": 50,
+          "y": 17,
+          "length": 17,
+          "isHorizontal": false
+        },
+        {
+          "x": 50,
+          "y": 34,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 50,
+          "y": 42,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 50,
+          "y": 42,
+          "length": 17,
+          "isHorizontal": false
+        },
+        {
+          "x": 56,
+          "y": 38,
+          "length": 6,
+          "isHorizontal": true
+        }
+      ]
     },
     {
       "name": "Sign Evaluation",
@@ -274,6 +1271,7 @@
     "ZWJlYTRlZTNiZTlhNDE5OGJkMzkxZTlmOTBjY2QzOGQyMWFhYzM5MTgxYWY5ODA2ODZlZjJmODFiMDU2NzIwMwlkYjY2Y2I1MjY0NzBhZjNlOWYwY2FhNzE1ZmU5NDg1NmZjMzM4YjY2N2RlZjQwOTlkNTRmNGU1MjQ3NDNhZDAxCTE3MDU4OTg2MDczNjcJMGU0ZDU5NDUzMmRlMTVjMGU3YjdlNTMxMzBjYTdmNWZjNWYyZDllZGYwNjZlNjY0Mzc2NGY3M2Y1MzVmMmFiMg\u003d\u003d",
     "ZGI2NmNiNTI2NDcwYWYzZTlmMGNhYTcxNWZlOTQ4NTZmYzMzOGI2NjdkZWY0MDk5ZDU0ZjRlNTI0NzQzYWQwMQlmMjRiYjYzMWMzNDgyODkwMWMyYzhiZDZiOTNmYjRmMjgyNjNmZjRmYzQ3YjVkMjg0MTE5NDljZGQwYzE5ZDBlCTE3MDU4OTg2MDc1NTQJMGU0ZDU5NDUzMmRlMTVjMGU3YjdlNTMxMzBjYTdmNWZjNWYyZDllZGYwNjZlNjY0Mzc2NGY3M2Y1MzVmMmFiMg\u003d\u003d",
     "ZjI0YmI2MzFjMzQ4Mjg5MDFjMmM4YmQ2YjkzZmI0ZjI4MjYzZmY0ZmM0N2I1ZDI4NDExOTQ5Y2RkMGMxOWQwZQkwNGQyMTI4ZDk0ZWU0MTQxZTIyYWNlNDY3MjBlZDA3NjA1YTZmODE4MmQ2YjEwNTI0N2YwNzM5NDYxYzk0YjE1CTE3MDYxMjI2NjkzNjIJNGIyOTg2YzgzZDg5ZjNjNDEyODI0NGEzMTM4ZjFhYTY1ZmZjM2ZlOGIxYzZjYmEwZjE5ODc4MmU4NzQwMGRkNAlDVFk1WW1Zek16RTRNVFJsTldFME5XWmxOMlZrWmpabE16VmhNalJrWlRjek5qSmxORE00TXprNE5UTTJZV0V3WmpabVpEQm1ZVFEwT0RObE1tTTBaVElKTVRVME9EQTVOak14TURNeU1nbGhNV1poTm1VMU1qUTRZV05rTVdSaE1qUTFNMk0yTXprNE1tVmhZVEF5Wm1FMlltWTFNR0V5WTJNMFl6ZzNNekJsTVRBek1URXpPV00wWlRKallqWTUJQ1RZNVltWXpNekU0TVRSbE5XRTBOV1psTjJWa1pqWmxNelZoTWpSa1pUY3pOakpsTkRNNE16azROVE0yWVdFd1pqWm1aREJtWVRRME9ETmxNbU0wWlRJSk1UVTBPREE1TmpNeE1ETXlNZ2xoTVdaaE5tVTFNalE0WVdOa01XUmhNalExTTJNMk16azRNbVZoWVRBeVptRTJZbVkxTUdFeVkyTTBZemczTXpCbE1UQXpNVEV6T1dNMFpUSmpZalk1CVpHTXpOMkprT1RReE5qbGxNRGN6WldVeFl6a3hOMkUxWXpBNE16RTNPVFprTmpjM05qZzRPVGhpTnpJeU9HWmtNV1ZoWW1Wa1pEQXlZelUyWVROa1lRazVOVFF6WVdSaU9UWTROalV6Tm1JMVpEWmhNak14TldJd09ERTJZVFk0WkdFMVpqVm1NekJsTWpGbVpUZzVZbVEyTVRSaE5ESmhZV1EzTkdOaVpUQmxDVEUyTnpVeU1UazJNVEEyT1RJSllqQmxNelExWm1WalpHVTBNVFUwTkROa1ptRTJOREJrWXpRM1pXWTRPREl3WXpSbE5EZG1NekE0WmprMlpUZzRORFZrTnpZM04yUXlNVFJqTVRobVlnPT0\u003d",
-    "MDRkMjEyOGQ5NGVlNDE0MWUyMmFjZTQ2NzIwZWQwNzYwNWE2ZjgxODJkNmIxMDUyNDdmMDczOTQ2MWM5NGIxNQk1YzliOTc3ZGQ5ZjRhNGZiNjYwMjYzNmEyYzgyZWU2MzdiN2Y4YjhlZTIyYjJiNGQ1ZGQ1YmNiNDJhODk1NmE4CTE3Mzc2MDE2MzUyNjgJNmI5N2I5NDYwOTA2NjZlMTk3MDEwOTk0Mjc5NmM1NDlkOThiYjM5NDZhNDM3YWI2OTliM2YwMmMzOWRjMzQwZQ\u003d\u003d"
+    "MDRkMjEyOGQ5NGVlNDE0MWUyMmFjZTQ2NzIwZWQwNzYwNWE2ZjgxODJkNmIxMDUyNDdmMDczOTQ2MWM5NGIxNQk1YzliOTc3ZGQ5ZjRhNGZiNjYwMjYzNmEyYzgyZWU2MzdiN2Y4YjhlZTIyYjJiNGQ1ZGQ1YmNiNDJhODk1NmE4CTE3Mzc2MDE2MzUyNjgJNmI5N2I5NDYwOTA2NjZlMTk3MDEwOTk0Mjc5NmM1NDlkOThiYjM5NDZhNDM3YWI2OTliM2YwMmMzOWRjMzQwZQ\u003d\u003d",
+    "NWM5Yjk3N2RkOWY0YTRmYjY2MDI2MzZhMmM4MmVlNjM3YjdmOGI4ZWUyMmIyYjRkNWRkNWJjYjQyYTg5NTZhOAkxNmM2YmNjOTA0YmRiN2NlZDM4NzE0MjJjM2E3ZmFmNGY1MDRhNmQwNjE3M2E3ZTJjMmZiNGJjZGVlN2EzMTc5CTE3Mzg1NjEwMjMwODcJN2Q3NjIzYWMzMjA4MDQ5MTEzNWYxZTYyY2ZhMmRlYWY1MjhhMWI5YTE1YzY3OGQzZGU3ZWVmYWE1NTRkMTY5NAlDVFkzTmpFM1lUUTBNbUkwWm1SaE1XVmxPV1psTlRjME0yWTJaR1ExTkRRM1ptRXpPV0l3T0Rsa1pqWXlaVEJsWmpnNVltWm1ZMlV5TXpKa1lqazRZemdKTVRjd05qQXlNemsxT0RVMU5RbGlaR001TW1ZM1lXRXlNbVZrTjJWaE4ySmxNVFJsTnpGaE5tSXhaREV6TUdaak0yVTRaVFZrT1RKalpUazVOR05oTjJGa01XRmtObVppWlRabU5HRTIJTW1abE5XTmxNemxpTnpoaFkyTmlZVFJpT0RnMFpqaGpZall6TVdGaU56TXhPRGczTTJZeFlqUTVPRGRsWWpVeE5XWXdPR1F4WW1Oa1ptUmtOVFkzWkFreVpqQmtObVpoWmpCaE4yVmpaakk0T0RoaU1UWmtORGRsT1RNeFpqbGhNekF6TW1KaU5tWTFOMk14T1dJMU9HTXpZekl5TTJSaE1UTmtObUV4WW1FeUNURTNNemN5TVRVNU1qSTFPVElKWlRJNU5XWmlZVE5pWm1KbFpEVTJNbVF4T1dWa1pEbGtOREJoT1dOak5tUXpNV1kxTUdJNVpEVmpPVEZtWkRCak5EY3hOR0kyWlRCbVl6TmxabVJtTXdsRFZGa3pUbXBGTTFsVVVUQk5iVWt3V20xU2FFMVhWbXhQVjFwc1RsUmpNRTB5V1RKYVIxRXhUa1JSTTFwdFJYcFBWMGwzVDBSc2ExcHFXWGxhVkVKc1dtcG5OVmx0V20xWk1sVjVUWHBLYTFscWF6UlplbWRLVFZSamQwNXFRWGxOZW1zeFQwUlZNVTVSYkdsYVIwMDFUVzFaTTFsWFJYbE5iVlpyVGpKV2FFNHlTbXhOVkZKc1RucEdhRTV0U1hoYVJFVjZUVWRhYWsweVZUUmFWRlpyVDFSS2FscFVhelZPUjA1b1RqSkdhMDFYUm10T2JWcHBXbFJhYlU1SFJUSUpUV3BHYlU5WFVYZE9iVmsxVGtkWk5FNHlXVFJhYlZsNVRtMVJkMDVxU21oWlZGa3pXVlJaZVU0eVZtMVBSRVY0VFdwS2FFNUVUWGxhYlVVMVRsUkZlbGxxVlRCUFIxWnBUVEpGZUU1cVJUVlpWMHByVG5kcmVrNXFWVEZhYWs1dFRWUktiVTFxYUcxUFJHUnRUVVJXYWs5SFRUQlBSR2hvVG5wck1GbFVXWGhhVkd0NVdXcEdhazVYVFRGWlZFcHJUbFJyZVU5VWFHMWFWMUV4VFhwWmVWbFVZM2haYWxKc1dUSkdha05VUlROTlJGbDRUVlJSTTAxRVl6Qk5WR3RLV1hwSmQwOUVZek5PTWtsNlRVZFJORTFIVVhoWlYxWnJXbFJDYTA1cVp6Uk9la2t3VGtkSk1FNUVRVEJaVkdkNVRrUmFhRmxxV1RGYVJGSnRUbnBGZUZwVVNYbGFhazE2VG5wT2EwNTZVbXhPVkZWNFdsRTlQUWxOVjFrMFRVUkplVmxYVVRST1ZGVXlXbXBWTTAxRVJURlBWR2Q0V2tSSk5GbHFTWGRhVkVGNldsUkpNazVIU1RKWmVrRjRUMFJKZVZwVWF6Vk5hbGwzVDBkS2ExbFhXbWxOUkVKcVRUSlZORnBYVVhoWlVXc3lXa1JDYTA5VVVYbE9WRUUxVFhwU2FFMXFTbTFOVjFVeVdrZFdhazE2VFRWYVIwVXpUbnBSTlUxRVdtMWFWMWw1V2xSRmQwNVVZek5PVjFVeldrZEdiVTVxWkdoTlJHTTFUVzFGTWs5VVpHcE5SMXBxUTFSRk0wMTZZM2xOVkZVMVRVUkZlazlFYTBwUFIxa3pUbnBaTlU1dFZtcE5lbXhzVG5wVk1GcEhWVEpPVjA1dFdXMUpNVTU2UlhsTlZFRTBUbFJLYVUxcVNUUlplazB5VDBkT2ExcFhSVE5PUkdkNlRXcEdhVTlVWXpOT2VtTXlUbTFGZWs1cVJtaE5kejA5CVltTmpOalpsTldZME5UY3pZVE13WkRNNFpXTXpPVEE0WldWa1kyWTVOalEyT0RrM01qTmpZVEU0WkdVellqQmtOak0wTXpGa05HUTROekl4TWpnMk1na3lOVFJrTUdWa1pUSm1OR0ZrTUdaall6ZzVabUU0TnpZd05ETm1OVEJpT0RJNE0yWXlZakZpTlRJeE1EUm1ZekppT0RRelpEYzNNV0UxWmpVME9EWmhDVEUzTXpnMU5USTJPRFV3TlRJSlpEUmpNV1JpWVRJM1lUQmtNalZrT1dZMVl6QmtZV1JoTjJSbVkySmhORE0yTm1GbVpXRXdZVGM1WkRNeVlXSmlOekF4WldFMVpXRm1aV05oTjJFNFlnPT0\u003d"
   ]
 }
