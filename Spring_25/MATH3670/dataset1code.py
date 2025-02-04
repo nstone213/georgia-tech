@@ -5,10 +5,16 @@ import seaborn as sns
 file_path = "/Users/nicholasstone/.cache/kagglehub/datasets/ankushpanday1/diabetes-prediction-in-india-dataset/versions/1/diabetes_prediction_india (1).csv"
 df = pd.read_csv(file_path)
 
-plt.figure(figsize=(10, 6))
+# Print the total number of instances in the dataset
+print(f"Total number of instances in the dataset: {len(df)}")
 
-#Only using 20% of the data
-sample_df = df.sample(frac=0.2, random_state=42)
+# Only using 15% of the data
+sample_df = df.sample(frac=0.15, random_state=42)
+
+# Print the number of instances in the sampled data
+print(f"Number of instances in the sampled data: {len(sample_df)}")
+
+plt.figure(figsize=(10, 6))
 
 sns.scatterplot(
     data=sample_df,
@@ -19,7 +25,6 @@ sns.scatterplot(
     alpha=0.6,
     s=20
 )
-
 
 plt.title("Age vs Fasting Blood Sugar (Colored by Diabetes Status)")
 plt.xlabel("Age")

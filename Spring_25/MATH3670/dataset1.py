@@ -1,5 +1,5 @@
 import kagglehub
 
-path = kagglehub.dataset_download("ankushpanday1/diabetes-prediction-in-india-dataset")
+path = kagglehub.dataset_download("mlippo/average-global-iq-per-country-with-other-stats")
 
 print("Path to dataset files:", path)
