@@ -10,6 +10,8 @@ df_avg_iq = pd.read_csv(file_path)
 # Display the column names to verify the correct names
 print("Available columns:", df_avg_iq.columns)
 
+print(f"Total number of entries (rows) in the dataset: {len(df_avg_iq)}")
+
 # Replace 'Literacy Rate' with the actual column name if different
 # Ensure the dataset has 'Average IQ' and 'Literacy Rate' columns
 if 'Average IQ' in df_avg_iq.columns and 'Literacy Rate' in df_avg_iq.columns:
