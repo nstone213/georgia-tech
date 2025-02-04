@@ -3,24 +3,40 @@ import pandas as pd
 
 #Function to calculate the quartiles
 def calculate_quartiles(data):
+
+    #Listing the quartiles and calculating them
     quartiles = {
-        "Q1 (25th percentile)": data.quantile(0.25),
-        "Q2 (50th percentile - Median)": data.quantile(0.5),
-        "Q3 (75th percentile)": data.quantile(0.75)
+        #1st quartile
+        "25 percentile": data.quantile(0.25),
+
+        #2nd quartile
+        "50 percentile": data.quantile(0.5),
+
+        #3rd quartile
+        "75 percentile": data.quantile(0.75)
     }
+
+    #Return statement
     return quartiles
 
+#Main code execution
 if __name__ == "__main__":
-    # Example dataset
+
+    #File Path (relative)
     file_path = "/Users/nicholasstone/.cache/kagglehub/datasets/luvharishkhati/heart-disease-patients-details/versions/1/heart_disease.csv"
 
+    #Uses Pandas to read dataframe
     df = pd.read_csv(file_path)
 
+    #Checking for age data
     if "age" in df.columns:
         data = df["age"].dropna()
         quartile_values = calculate_quartiles(data)
         print("Quartile Values:")
-        for label, value in quartile_values.items():
-            print(f"{label}: {value}")
+
+        #Individually prints quartiles to terminal
+        for quartiled, num in quartile_values.items():
+            print(f"{quartiled}: {num}")
     else:
-        print("The 'age' column is not present in the dataset.")
+        #'Error' statement
+        print("Age not present in data.")
