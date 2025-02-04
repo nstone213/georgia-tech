@@ -1,15 +1,6 @@
 import pandas as pd
 
 def calculate_quartiles(data):
-    """
-    Computes the first (Q1), second (median/Q2), and third (Q3) quartiles.
-    
-    Parameters:
-        data (list or pandas Series): The numerical dataset.
-        
-    Returns:
-        dict: A dictionary containing Q1, Q2 (median), and Q3.
-    """
     quartiles = {
         "Q1 (25th percentile)": data.quantile(0.25),
         "Q2 (50th percentile - Median)": data.quantile(0.5),
