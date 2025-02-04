@@ -14,7 +14,8 @@ if 'age' in df_heart_disease.columns:
     data = df_heart_disease['age'].dropna()
 
     # Defines k bins
-    k = 10  # Can be adjusted, but 10 is ideal number in my opinion, essentially separates by decades, which makes sense in the context of heart disease
+    k = 10  # Can be adjusted, but 10 is ideal number in my opinion, essentially separates by decades, 
+            # which makes sense in the context of heart disease
 
     # Creating the Frequency Histogram
     plt.figure(figsize=(10, 6))
@@ -55,7 +56,8 @@ if 'age' in df_heart_disease.columns:
     # Initialized grid for visual purposes
     plt.grid(True)
 
-    # Initialized the relative histogram in a separate frame, keep in mind that the first histogram must be x'd out of to see this second histogram 
+    # Initialized the relative histogram in a separate frame, keep in mind that the first histogram must be x'd 
+    #out of to see this second histogram 
     plt.show()
 
     # Display C, must have x'd out of both histograms to see in terinal (i.e. the program has terminated)
