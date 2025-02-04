@@ -1,11 +1,12 @@
+#Imports
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Path to the dataset
+# File Path (relative)
 file_path = "/Users/nicholasstone/.cache/kagglehub/datasets/luvharishkhati/heart-disease-patients-details/versions/1/heart_disease.csv"
 
-# Load the dataset
+# Interprets data as Pandas dataframe
 df_heart_disease = pd.read_csv(file_path)
 
 # Select a numerical column for the histogram (e.g., 'age')
@@ -39,4 +40,5 @@ if 'age' in df_heart_disease.columns:
     # Display the value of C
     print(f"Value of C (normalizing constant): {C}")
 else:
-    print("The 'age' column is not present in the dataset.")
+    #'Error' statement
+    print("Age not present in data.")

@@ -30,4 +30,4 @@ if __name__ == "__main__":
         print(f"Sample Variance: {variance_value}")
     else:
         #'Error' statement
-        print("The 'age' column is not present in the dataset.")
+        print("Age not present in data.")
