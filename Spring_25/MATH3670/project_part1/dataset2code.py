@@ -1,33 +1,42 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Path to the dataset
-file_path = "/Users/nicholasstone/.cache/kagglehub/datasets/mlippo/average-global-iq-per-country-with-other-stats/versions/3/avgIQpercountry.csv"
+file_path = "/Users/nicholasstone/.cache/kagglehub/datasets/luvharishkhati/heart-disease-patients-details/versions/1/heart_disease.csv"
 
 # Load the dataset
-df_avg_iq = pd.read_csv(file_path)
+df_heart_disease = pd.read_csv(file_path)
 
-# Display the column names to verify the correct names
-print("Available columns:", df_avg_iq.columns)
+# Select a numerical column for the histogram (e.g., 'age')
+if 'age' in df_heart_disease.columns:
+    data = df_heart_disease['age'].dropna()
 
-print(f"Total number of entries (rows) in the dataset: {len(df_avg_iq)}")
+    # Choose a reasonable number of bins (k)
+    k = 10  # Adjust as needed
 
-# Replace 'Literacy Rate' with the actual column name if different
-# Ensure the dataset has 'Average IQ' and 'Literacy Rate' columns
-if 'Average IQ' in df_avg_iq.columns and 'Literacy Rate' in df_avg_iq.columns:
-    # Create the scatter plot
+    # Frequency Histogram
     plt.figure(figsize=(10, 6))
-    plt.scatter(df_avg_iq['Average IQ'], df_avg_iq['Literacy Rate'], alpha=0.7)
-
-    # Add labels and title
-    plt.xlabel('Average IQ')
-    plt.ylabel('Literacy Rate (%)')
-    plt.title('Scatter Plot of Average IQ vs. Literacy Rate per Country')
-
-    # Add grid for better readability
+    counts, bins, patches = plt.hist(data, bins=k, edgecolor='black')
+    plt.title('Frequency Histogram of Age')
+    plt.xlabel('Age')
+    plt.ylabel('Frequency')
     plt.grid(True)
-
-    # Show the plot
     plt.show()
+
+    # Relative Frequency Histogram
+    C = counts.sum()  # Total number of data points (normalizing constant)
+    relative_frequencies = counts / C
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(bins[:-1], relative_frequencies, width=np.diff(bins), edgecolor='black', align='edge')
+    plt.title('Relative Frequency Histogram of Age')
+    plt.xlabel('Age')
+    plt.ylabel('Relative Frequency')
+    plt.grid(True)
+    plt.show()
+
+    # Display the value of C
+    print(f"Value of C (normalizing constant): {C}")
 else:
-    print("Ensure the dataset has 'Average IQ' and 'Literacy Rate' columns.")
+    print("The 'age' column is not present in the dataset.")
