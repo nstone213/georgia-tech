@@ -1,5 +1,7 @@
+#Imports
 import pandas as pd
 
+#Function to calculate the quartiles
 def calculate_quartiles(data):
     quartiles = {
         "Q1 (25th percentile)": data.quantile(0.25),

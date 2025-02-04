@@ -26,7 +26,7 @@ if __name__ == "__main__":
         sample_mean_value = calculate_mean(data)
 
         #Prints to terminal
-        print(f"Sample Mean: {sample_mean_value}")
+        print(f"Sample Mean is {sample_mean_value}")
     else:
         #'Error' message
-        print("The 'age' column is not present in the dataset.")
+        print("Age not present in data.")
