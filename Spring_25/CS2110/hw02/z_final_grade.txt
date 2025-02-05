@@ -1,0 +1,7 @@
+        alu.sim - not done
+demorgan.sim - done
+        fsm.sim - not done
+gates.sim - done
+        latches.sim - not done
+plexers.sim - done
+sumofproducts - done
