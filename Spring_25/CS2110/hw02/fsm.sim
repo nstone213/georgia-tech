@@ -1,5 +1,5 @@
 {
-  "version": "1.9.2b 2110 version",
+  "version": "1.10.0-CE",
   "globalBitSize": 1,
   "clockSpeed": 1,
   "circuits": [
@@ -20,6 +20,14 @@
           "y": 5,
           "properties": {
             "Text": " STATE 10: DRINK"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.misc.Text",
+          "x": 1,
+          "y": 1,
+          "properties": {
+            "Text": "Name: Nicholas Stone"
           }
         },
         {
@@ -75,7 +83,7 @@
           "properties": {
             "Label location": "NORTH",
             "Label": "",
-            "Value": "1",
+            "Value": "0b1",
             "Direction": "EAST",
             "Bitsize": "1",
             "Base": "BINARY"
@@ -89,14 +97,6 @@
             "Label location": "NORTH",
             "Label": "STATE",
             "Bitsize": "2"
-          }
-        },
-        {
-          "name": "com.ra4king.circuitsim.gui.peers.misc.Text",
-          "x": 1,
-          "y": 1,
-          "properties": {
-            "Text": "Name: *EDIT ME*"
           }
         },
         {
@@ -754,6 +754,7 @@
     "MDJkYmQ4NzYyMjNkZjA2NmQ3ZDk2MTkzZTVhMWMxZTAxOTllMWYwOTRhZTE5NGM1ZWJlMjlkY2RmZWNjZTU2YQkxMjhhYTQzMjk2MTg3ODMzMDM5YjMzMmEzMzIyYzcyOTZkNzU4MTg5NWU2OGQ2ZjAyOTA4OWM4YzNiMGY4Nzc5CTE3MDU2MDU1NTU1NzcJOGM4OWQ2MjA0NDNlM2M3ZGI2MDRjYWUyMTU1Yzg2OGU1MDliOWEyYmMwYzNlZWNiYWUxMjVkMWI4OGNjYWRlNA\u003d\u003d",
     "MTI4YWE0MzI5NjE4NzgzMzAzOWIzMzJhMzMyMmM3Mjk2ZDc1ODE4OTVlNjhkNmYwMjkwODljOGMzYjBmODc3OQk4OWMwZDJmMmI0Mzc5NWY1NTBiOGNhMWQxYjBmOGRmYjVmZGM2YTY0Zjc1NDMyNDM5ZTA1MWFkYmZiMzI4OWYzCTE3MDYyMDQ2NjY4NDcJNjcyOTFhYmJlYjc1Zjk3NWI0OTRkZGQyMDBiMWI2YjYxYmZkOTFjMGRiMGMzZTZlOTdiN2IzMzI0M2UyOTYyYQ\u003d\u003d",
     "ODljMGQyZjJiNDM3OTVmNTUwYjhjYTFkMWIwZjhkZmI1ZmRjNmE2NGY3NTQzMjQzOWUwNTFhZGJmYjMyODlmMwljZDYyMmQ4ZjhhYWI5NzcyM2MzZjM4NTlmZWFkMDhkOTA3YzE1OTBiNmE1ZDc3ZDA0ZTdkNjZjZjZhNDlhYjc4CTE3MDYyMDQ2NjcwMjcJNjcyOTFhYmJlYjc1Zjk3NWI0OTRkZGQyMDBiMWI2YjYxYmZkOTFjMGRiMGMzZTZlOTdiN2IzMzI0M2UyOTYyYQ\u003d\u003d",
-    "Y2Q2MjJkOGY4YWFiOTc3MjNjM2YzODU5ZmVhZDA4ZDkwN2MxNTkwYjZhNWQ3N2QwNGU3ZDY2Y2Y2YTQ5YWI3OAk2ZWY4MmYxYzgxNmMwYjAxNzZhMmM5MGIwOWQyOTI3MzNkYzIyZWYzMDIyYTU2YjBiNzE0ODQ0NDUzNWM5MjUzCTE3MzcxNzc3NjI0MjUJNmQwOWRmNzUwYWM3YjZiYzc2NTc4ZGYwYWYwOWJhOWIzYmFjMjk2MzU5MTllYjhmMWExODRiZjYwNzk2MTQ5Mg\u003d\u003d"
+    "Y2Q2MjJkOGY4YWFiOTc3MjNjM2YzODU5ZmVhZDA4ZDkwN2MxNTkwYjZhNWQ3N2QwNGU3ZDY2Y2Y2YTQ5YWI3OAk2ZWY4MmYxYzgxNmMwYjAxNzZhMmM5MGIwOWQyOTI3MzNkYzIyZWYzMDIyYTU2YjBiNzE0ODQ0NDUzNWM5MjUzCTE3MzcxNzc3NjI0MjUJNmQwOWRmNzUwYWM3YjZiYzc2NTc4ZGYwYWYwOWJhOWIzYmFjMjk2MzU5MTllYjhmMWExODRiZjYwNzk2MTQ5Mg\u003d\u003d",
+    "NmVmODJmMWM4MTZjMGIwMTc2YTJjOTBiMDlkMjkyNzMzZGMyMmVmMzAyMmE1NmIwYjcxNDg0NDQ1MzVjOTI1Mwk1MWQyMDFmYmUyZWUwOTNlMDUzZDk3MTY0OTBiMDA2NmNhM2Q0N2I5MTcyZTI0ZmEyMTE2N2U1ZmU4NWRlNWUxCTE3Mzg3OTkzNTY2MTgJN2VkN2E1MWFmMTY4YTU1ZDBjNzY1NjkyZDZlMmUzNGEyYjA1NDFmYWE2OTA1YjZlMTk0NDVlZDY2OWJlM2Q3OA\u003d\u003d"
   ]
 }
