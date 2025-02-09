@@ -1,9 +1,3 @@
-import setting
-import random
-random.seed(setting.RANDOM_SEED)
-import numpy as np
-np.random.seed(setting.RANDOM_SEED)
-import math
 from typing import Tuple
 
 def grid_distance(x1: int, y1: int, x2: int, y2: int) -> float:
@@ -21,10 +15,8 @@ def grid_distance(x1: int, y1: int, x2: int, y2: int) -> float:
         float
             Euclidean distance between the two points.
     """
-    dist = 0
-    # TODO: implement here
-    # ----------------------------------
-    # ----------------------------------
+    dist = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** (0.5)
+
     return dist
 
 
@@ -122,5 +114,3 @@ def compute_mean_pose(particles, confident_dist=1):
             m_count += 1
 
     return m_x, m_y, m_h, m_count > len(particles) * 0.95
-
-
