@@ -7,4 +7,4 @@ centralWidgetVisible: 1
 orthographicViewHeight: 1
 textFiles: 0 "controllers/proj1_vision_only_controller/proj1_vision_only_controller.py"
 consoles: Console:All:All
-renderingDevicePerspectives: e-puck:camera;1;0.320833;0;4.54714e-11
+renderingDevicePerspectives: e-puck:camera;1;0.51875;0;4.54714e-11
