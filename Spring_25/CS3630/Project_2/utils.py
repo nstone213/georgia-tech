@@ -1,4 +1,5 @@
 from typing import Tuple
+import math
 
 def grid_distance(x1: int, y1: int, x2: int, y2: int) -> float:
     """
@@ -34,11 +35,9 @@ def rotate_point(x: float, y: float, heading_deg: float) -> Tuple:
         Tuple[float, float] (xr, yr)
             Coordinates of the rotated point.
     """
-    xr, yr = 0, 0
-
-    # TODO: implement here
-    # ----------------------------------
-    # ----------------------------------
+    heading_rad = math.radians(heading_deg)
+    xr = x * math.cos(heading_rad) - y * math.sin(heading_rad)
+    yr = x * math.sin(heading_rad) + y * math.cos(heading_rad)
 
     return xr, yr
 
