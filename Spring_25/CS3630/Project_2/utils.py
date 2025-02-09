@@ -1,5 +1,6 @@
 from typing import Tuple
 import math
+import numpy as np
 
 def grid_distance(x1: int, y1: int, x2: int, y2: int) -> float:
     """
@@ -55,11 +56,7 @@ def add_gaussian_noise(variable: float, sigma: float = 1.0) -> float:
         float
             Variable with added Gaussian noise.
     """
-    noisy_variable = 0
-
-    # TODO: implement here
-    # ----------------------------------
-    # ----------------------------------
+    noisy_variable = variable + np.random.normal(0, sigma)
 
     return noisy_variable
 
