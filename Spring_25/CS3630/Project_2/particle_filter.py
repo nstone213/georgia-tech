@@ -1,3 +1,5 @@
+# Nicholas Stone
+
 from grid import *
 from particle import Particle
 from utils import *
@@ -20,10 +22,11 @@ def create_random(count: int, grid: CozGrid) -> List[Particle]:
     Returns:
         List of Particles with random coordinates in the grid's free space.
     """
-    # TODO: implement here
-    # -------------------
-    raise NotImplementedError
-    # -------------------
+    particles = []
+    for particle in range(count):
+        x, y = grid.random_free_place()  # Get a random free position
+        particles.append(Particle(x, y))  # Create a Particle object
+    return particles
     
 
 # ------------------------------------------------------------------------
