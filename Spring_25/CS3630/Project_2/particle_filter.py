@@ -8,7 +8,7 @@ import numpy as np
 np.random.seed(setting.RANDOM_SEED)
 from itertools import product
 from typing import List, Tuple
-
+import utils
 
 def create_random(count: int, grid: CozGrid) -> List[Particle]:
     """
@@ -24,49 +24,35 @@ def create_random(count: int, grid: CozGrid) -> List[Particle]:
     """
     particles = []
     for particle in range(count):
-        x, y = grid.random_free_place()  # Get a random free position
-        particles.append(Particle(x, y))  # Create a Particle object
+        x, y = grid.random_free_place()
+        particles.append(Particle(x, y))
     return particles
     
 
 # ------------------------------------------------------------------------
-def motion_update(old_particles:  List[Particle], odometry_measurement: Tuple, grid: CozGrid) -> List[Particle]:
-    """
-    Implements the motion update step in a particle filter. 
-    Refer to setting.py and utils.py for required functions and noise parameters
-    For more details, please read "Motion update details" section and Figure 3 in "CS3630_Project2_Spring_2025.pdf"
-
-
-    NOTE: the GUI will crash if you have not implemented this method yet. To get around this, try setting new_particles = old_particles.
-
-    Arguments:
-        old_particles: List 
-            list of Particles representing the belief before motion update p(x_{t-1} | u_{t-1}) in *global coordinate frame*
-        odometry_measurement: Tuple
-            noisy estimate of how the robot has moved since last step, (dx, dy, dh) in *local robot coordinate frame*
-
-    Returns: 
-        a list of NEW particles representing belief after motion update \tilde{p}(x_{t} | u_{t})
-    """
+def motion_update(old_particles: List[Particle], odometry_measurement: Tuple, grid: CozGrid) -> List[Particle]:
     new_particles = []
 
     for particle in old_particles:
-        # extract the x/y/heading from the particle
         x_g, y_g, h_g = particle.xyh
-        # and the change in x/y/heading from the odometry measurement
         dx_r, dy_r, dh_r = odometry_measurement
 
-        new_particle = None
-        # TODO: implement here
-        # ----------------------------------
-        # align odometry_measurement's robot frame coords with particle's global frame coords (heading already aligned)
+        # Rotate the odometry measurement to the global frame
+        dx_g, dy_g = rotate_point(dx_r, dy_r, h_g)
 
-        # compute estimated new coordinate, using current pose and odometry measurements. Make sure to add noise to simulate the uncertainty in the robot's movement.
+        # Add noise to the translational and heading updates
+        new_x = x_g + dx_g + add_gaussian_noise(0, setting.ODOM_TRANS_SIGMA)
+        new_y = y_g + dy_g + add_gaussian_noise(0, setting.ODOM_TRANS_SIGMA)
+        new_heading = (h_g + dh_r + add_gaussian_noise(0, setting.ODOM_HEAD_SIGMA))
 
-        # create a new particle with this noisy coordinate
+        # Ensure heading is within [-180, 180)
+        if new_heading > 180:
+            new_heading -= 360
+        elif new_heading <= -180:
+            new_heading += 360
 
-        raise NotImplementedError
-        # ----------------------------------
+        # Create a new particle with the updated coordinates and heading
+        new_particle = Particle(new_x, new_y, new_heading)
         new_particles.append(new_particle)
 
     return new_particles
@@ -82,137 +68,171 @@ def generate_marker_pairs(robot_marker_list: List[Tuple], particle_marker_list: 
         Returns: List[Tuple] of paired robot and particle markers: [((xp1, yp1, hp1), (xr1, yr1, hr1)), ((xp2, yp2, hp2), (xr2, yr2, hr2),), ...]
     """
     marker_pairs = []
+
+    # While both lists have unpaired markers
     while len(robot_marker_list) > 0 and len(particle_marker_list) > 0:
-        # TODO: implement here
-        # ----------------------------------
-        # find the (particle marker,robot marker) pair with shortest grid distance
-        
-        # add this pair to marker_pairs and remove markers from corresponding lists
-    
-        raise NotImplementedError
-        # ----------------------------------
-        pass
+        min_distance = float('inf')
+        closest_pair = None
+        closest_robot_marker = None
+        closest_particle_marker = None
+
+        # Iterate through each robot marker and find the closest particle marker
+        for robot_marker in robot_marker_list:
+            for particle_marker in particle_marker_list:
+                # Calculate the Euclidean distance between the robot marker and particle marker
+                dist = grid_distance(robot_marker[0], robot_marker[1], particle_marker[0], particle_marker[1])
+
+                # If this is the closest pair, store it
+                if dist < min_distance:
+                    min_distance = dist
+                    closest_pair = (robot_marker, particle_marker)
+                    closest_robot_marker = robot_marker
+                    closest_particle_marker = particle_marker
+
+        # Once the closest pair is found, add it to the result and remove the markers from the lists
+        marker_pairs.append(closest_pair)
+        robot_marker_list.remove(closest_robot_marker)
+        particle_marker_list.remove(closest_particle_marker)
+
     return marker_pairs
 
 # ------------------------------------------------------------------------
+# Constants from setting.py
+MARKER_TRANS_SIGMA = 0.5  # translational error in inch
+MARKER_HEAD_SIGMA = 5     # rotational error in degrees
+
 def marker_likelihood(robot_marker: Tuple, particle_marker: Tuple) -> float:
     """ Calculate likelihood of reading this marker using Gaussian PDF. 
-        The standard deviation of the marker translation and heading distributions 
-        can be found in setting.py
-        
-        Some functions in utils.py might be useful in this section
 
-        Arguments:
-        robot_marker -- Tuple (x,y,theta) of robot marker pose
-        particle_marker -- Tuple (x,y,theta) of particle marker pose
+    Arguments:
+    robot_marker -- Tuple (x,y,theta) of robot marker pose
+    particle_marker -- Tuple (x,y,theta) of particle marker pose
 
-        Returns: float probability
+    Returns: float probability
     """
-    l = 0.0
-    # TODO: implement here
-    # ----------------------------------
-    # find the distance between the particle marker and robot marker
-
-    # find the difference in heading between the particle marker and robot marker
-
-    # calculate the likelihood of this marker using the gaussian pdf. You can use the formula on Page 5 of "CS3630_Project2_Spring_2025.pdf"
-
-    raise NotImplementedError
-    # ----------------------------------
-    return l
+    # Extract positions and headings (angles)
+    robot_x, robot_y, robot_theta = robot_marker
+    particle_x, particle_y, particle_theta = particle_marker
+    
+    # Calculate the distance between the robot marker and particle marker
+    dist_between_markers = math.sqrt((robot_x - particle_x) ** 2 + (robot_y - particle_y) ** 2)
+    
+    # Calculate the difference in heading (angle) between the robot marker and particle marker
+    angle_between_markers = abs(robot_theta - particle_theta)
+    
+    # Normalize the angle to be within the range [0, 180] degrees
+    if angle_between_markers > 180:
+        angle_between_markers = 360 - angle_between_markers
+    
+    # Calculate the likelihood using the Gaussian formula
+    exp_part = (dist_between_markers ** 2) / (2 * MARKER_TRANS_SIGMA ** 2) + (angle_between_markers ** 2) / (2 * MARKER_HEAD_SIGMA ** 2)
+    
+    # Return the likelihood
+    likelihood = math.exp(-exp_part)
+    
+    return likelihood
 
 # ------------------------------------------------------------------------
 def particle_likelihood(robot_marker_list: List[Tuple], particle_marker_list: List[Tuple]) -> float:
     """ Calculate likelihood of the particle pose being the robot's pose
 
-        Arguments:
-        robot_marker_list -- List of markers (x,y,theta) observed by the robot
-        particle_marker_list -- List of markers (x,y,theta) observed by the particle
+    Arguments:
+    robot_marker_list -- List of markers (x, y, theta) observed by the robot
+    particle_marker_list -- List of markers (x, y, theta) observed by the particle
 
-        Returns: float probability
+    Returns: float probability
     """
-    l = 1.0
+    l = 1.0  # Start with a likelihood of 1 (neutral)
     marker_pairs = generate_marker_pairs(robot_marker_list, particle_marker_list)
-    # TODO: implement here
-    # ----------------------------------
-    # update the particle likelihood using the likelihood of each marker pair
-    # HINT: consider what the likelihood should be if there are no pairs generated
-
-    raise NotImplementedError
-    # ----------------------------------
+    
+    # If there are no valid pairs, return a very low likelihood
+    if len(marker_pairs) == 0:
+        return 0.0
+    
+    # Update the particle likelihood using the likelihood of each marker pair
+    for robot_marker, particle_marker in marker_pairs:
+        # Calculate the likelihood for each marker pair
+        marker_prob = marker_likelihood(robot_marker, particle_marker)
+        
+        # Multiply by the individual likelihoods for each marker pair
+        l *= marker_prob
+    
     return l
 
 # ------------------------------------------------------------------------
 def measurement_update(particles: List[Particle], measured_marker_list: List[Tuple], grid: CozGrid) -> List[Particle]:
     """ Particle filter measurement update
-       
-        NOTE: the GUI will crash if you have not implemented this method yet. To get around this, try setting measured_particles = particles.
-        
-        Arguments:
-        particles -- input list of particle represents belief \tilde{p}(x_{t} | u_{t})
-                before measurement update (but after motion update)
-
-        measured_marker_list -- robot detected marker list, each marker has format:
-                measured_marker_list[i] = (rx, ry, rh)
-                rx -- marker's relative X coordinate in robot's frame
-                ry -- marker's relative Y coordinate in robot's frame
-                rh -- marker's relative heading in robot's frame, in degree
-
-                * Note that the robot can only see markers which is in its camera field of view,
-                which is defined by ROBOT_CAMERA_FOV_DEG in setting.py
-				* Note that the robot can see mutliple markers at once, and may not see any one
-
-        grid -- grid world map, which contains the marker information,
-                see grid.py and CozGrid for definition
-                Can be used to evaluate particles
-
-        Returns: the list of particles represents belief p(x_{t} | u_{t})
-                after measurement update
+    
+    Arguments:
+    particles -- input list of particles representing belief \tilde{p}(x_{t} | u_{t})
+    measured_marker_list -- list of robot-detected markers (rx, ry, rh)
+    grid -- grid world map, which contains the marker information
+    
+    Returns:
+    List of particles representing belief p(x_{t} | u_{t}) after measurement update
     """
     measured_particles = []
     particle_weights = []
     num_rand_particles = 25
-    
+
     if len(measured_marker_list) > 0:
         for p in particles:
             x, y = p.xy
-            if grid.is_in(x, y) and grid.is_free(x, y):
+            if grid.is_in(x, y) and grid.is_free(x, y):  # Check if particle is in free space
                 robot_marker_list = measured_marker_list.copy()
-                particle_marker_list =  p.read_markers(grid)
-                l = None
-
-                # TODO: implement here
-                # ----------------------------------
-                # compute the likelihood of the particle pose being the robot's
-                # pose when the particle is in a free space
-
-                # ----------------------------------
+                particle_marker_list = p.read_markers(grid)
+                
+                # Calculate the likelihood of the particle pose based on the measured markers
+                l = particle_likelihood(robot_marker_list, particle_marker_list)
             else:
-                pass
-                # TODO: implement here
-                # ----------------------------------
-                # compute the likelihood of the particle pose being the robot's pose
-                # when the particle is NOT in a free space
+                # If particle is not in free space, assign a very low likelihood
+                l = 0.0001  # Low likelihood if particle is in an occupied or invalid space
 
-                # ----------------------------------
-
+            # Append the likelihood for each particle
             particle_weights.append(l)
     else:
-        particle_weights = [1.]*len(particles)
+        # If no measured markers, all particles have equal weight
+        particle_weights = [1.0] * len(particles)
     
-    # TODO: Importance Resampling
-    # ----------------------------------
-    # if the particle weights are all 0, generate a new list of random particles
+    # Normalize the particle weights
+    total_weight = sum(particle_weights)
+    if total_weight > 0:
+        particle_weights = [weight / total_weight for weight in particle_weights]
+    else:
+        # If the total weight is 0 (very unlikely), fallback to uniform distribution
+        particle_weights = [1.0 / len(particles)] * len(particles)
+    
+    # Create random particles if all weights are zero or too small
+    if total_weight == 0:
+        measured_particles.extend([random_particle(grid) for _ in range(num_rand_particles)])
 
-    # normalize the particle weights
-            
-    # create a fixed number (num_rand_particles) of random particles and add to measured particles
-
-    # resample remaining particles using the computed particle weights, make sure there are setting.PARTICLE_COUNT particles in measured_particles list
-
-    raise NotImplementedError
-    # ----------------------------------
+    # Perform resampling based on particle weights
+    resampled_particles = resample_particles(particles, particle_weights, len(particles) - num_rand_particles)
+    
+    # Add resampled and random particles to the final list
+    measured_particles.extend(resampled_particles)
 
     return measured_particles
+
+def random_particle(grid: CozGrid) -> Particle:
+    """ Generate a random particle within the grid """
+    x, y = random.choice(grid.get_free_cells())  # Get a random free cell in the grid
+    theta = random.uniform(0, 360)  # Random orientation
+    return Particle(x, y, theta)
+
+def resample_particles(particles: List[Particle], weights: List[float], num_particles: int) -> List[Particle]:
+    """ Resample particles based on their weights using roulette wheel selection """
+    # Compute the cumulative distribution of particle weights
+    cumulative_weights = [sum(weights[:i+1]) for i in range(len(weights))]
+    
+    resampled_particles = []
+    for _ in range(num_particles):
+        rand_val = random.random()
+        for i, cumulative_weight in enumerate(cumulative_weights):
+            if rand_val <= cumulative_weight:
+                resampled_particles.append(particles[i])
+                break
+    
+    return resampled_particles
 
 
