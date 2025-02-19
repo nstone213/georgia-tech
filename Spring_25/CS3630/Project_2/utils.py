@@ -1,3 +1,4 @@
+
 # Nicholas Stone
 
 from typing import Tuple
