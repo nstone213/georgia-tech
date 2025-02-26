@@ -48,13 +48,6 @@ class LidarSim:
            - Return the array of simulated lidar measurements.
         '''
 
-        # Reset the measurements
-        self.measurements = math.inf*np.ones(self.n_rays) # Webots lidar sensor returns inf for no detection
-        
-        ######### START STUDENT CODE #########
-        # Hint - You may find the following functions in utils.py useful: 
-        # line_rectangle_intersect, line_segment_intersect, line_intersection, distance_between_points
-
-        ########## END STUDENT CODE ##########
-
+        self.measurements.fill(float("inf"))
+         #NOT DONE
         return self.measurements
