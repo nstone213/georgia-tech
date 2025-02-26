@@ -88,11 +88,11 @@ class SE2:
         Return:
             * (SE2): The resulting SE2 after composition.
         """
-        new_pose = None
-        ######### START STUDENT CODE #########
+        new_x = self.c * other.x - self.s * other.y + self.x
+        new_y = self.s * other.x + self.c * other.y + self.y
+        new_h = self.h + other.h
 
-        ########## END STUDENT CODE ##########
-        return new_pose
+        return SE2(new_x, new_y, new_h)
 
     # Inverse of the transformation.
     def inverse(self) -> 'SE2':
