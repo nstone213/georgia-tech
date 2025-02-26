@@ -104,13 +104,14 @@ class SE2:
         Return:
             * (SE2): the inverse transformation.
         """
-        new_x = None
-        new_y = None
-        new_h = None
-        ######### START STUDENT CODE #########
+        inv_h = -self.h
+        inv_c = math.cos(inv_h)
+        inv_s = math.sin(inv_h)
 
-        ########## END STUDENT CODE ##########
-        return SE2(new_x, new_y, new_h)
+        inv_x = -self.x * inv_c - self.y * inv_s
+        inv_y = -self.x * inv_s + self.y * inv_c
+
+        return SE2(inv_x, inv_y, inv_h)
 
     # Add Gaussian noise to the transformation.
     def add_noise(self, x_sigma: float, y_sigma: float, h_sigma:float) -> 'SE2':
