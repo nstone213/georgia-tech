@@ -80,12 +80,9 @@ class Environment:
                 - the first entry is the forward speed (in meter/second).
                 - the second entry is the counterclockwise rotational speed of the robot (in radian/second).
         """
-        v_x = 0
-        omega = 0
+        v_x = (self.wheel_radius / 2) * (omega_l + omega_r)
 
-        ######### START STUDENT CODE #########
-
-        ########## END STUDENT CODE ##########
+        omega = (self.wheel_radius / self.axle_length) * (omega_r - omega_l)
 
         return v_x, omega
 
