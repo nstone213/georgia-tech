@@ -70,11 +70,9 @@ class SE2:
         Return:
             *(Point): the point after the transformation.
         """
-        new_x = None
-        new_y = None
-        ######### START STUDENT CODE #########
+        new_x = self.c * point.x - self.s * point.y + self.x
+        new_y = self.s * point.x + self.c * point.y + self.y
 
-        ########## END STUDENT CODE ##########
         return Point(new_x, new_y)
 
     # Compose with another transformation.
