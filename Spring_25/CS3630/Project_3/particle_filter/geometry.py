@@ -1,3 +1,5 @@
+# Nicholas Stone
+
 import numpy as np
 import math
 
@@ -104,14 +106,14 @@ class SE2:
         Return:
             * (SE2): the inverse transformation.
         """
-        inv_h = -self.h
-        inv_c = math.cos(inv_h)
-        inv_s = math.sin(inv_h)
+        new_h = -self.h
+        inverted_c = math.cos(new_h)
+        inverted_s = math.sin(new_h)
 
-        inv_x = -self.x * inv_c - self.y * inv_s
-        inv_y = -self.x * inv_s + self.y * inv_c
+        new_x = -self.x * inverted_c - self.y * inverted_s
+        new_y = -self.x * inverted_s + self.y * inverted_c
 
-        return SE2(inv_x, inv_y, inv_h)
+        return SE2(new_x, new_y, new_h)
 
     # Add Gaussian noise to the transformation.
     def add_noise(self, x_sigma: float, y_sigma: float, h_sigma:float) -> 'SE2':

@@ -1,3 +1,5 @@
+# Nicholas Stone
+
 import numpy as np
 import math
 from geometry import SE2, Point
@@ -81,7 +83,6 @@ class Environment:
                 - the second entry is the counterclockwise rotational speed of the robot (in radian/second).
         """
         v_x = (self.wheel_radius / 2) * (omega_l + omega_r)
-
         omega = (self.wheel_radius / self.axle_length) * (omega_r - omega_l)
 
         return v_x, omega

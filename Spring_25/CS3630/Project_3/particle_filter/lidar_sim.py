@@ -1,3 +1,5 @@
+# Nicholas Stone
+
 import math
 import numpy as np
 from utils import *
@@ -5,15 +7,15 @@ from wall import Wall
 
 class LidarSim:
     # Constructor
-    def __init__(self, walls:list[Wall], max_range:float, n_rays:float):
+    def __init__(self, walls: list[Wall], max_range: float, n_rays: float):
         self.walls = walls
         self.max_range = max_range
         self.n_rays = n_rays
-        self.resolution = int(360/n_rays)
-        self.measurements = math.inf*np.ones(self.resolution)
+        self.resolution = int(360 / n_rays)
+        self.measurements = math.inf * np.ones(self.n_rays)
 
     # Simulate the lidar sensor reading
-    def read(self, pose:SE2) -> np.ndarray:
+    def read(self, pose: SE2) -> np.ndarray:
         '''
         Simulate the lidar sensor readings given the current pose of the robot.
 
@@ -48,6 +50,33 @@ class LidarSim:
            - Return the array of simulated lidar measurements.
         '''
 
-        self.measurements.fill(float("inf"))
-         #NOT DONE
+        self.measurements = math.inf*np.ones(self.n_rays) # Webots lidar sensor returns inf for no detection
+
+        for i in range(self.n_rays):
+            angled = pose.h + math.radians((i * self.resolution) + (self.resolution / 2))
+            fin_x = pose.x + self.max_range * math.cos(angled)
+            fin_y = pose.y + self.max_range * math.sin(angled)
+            endpoint = Point(fin_x, fin_y)
+            minimum_distance = math.inf
+
+            for wall in self.walls:
+                if line_rectangle_intersect(Point(pose.x, pose.y), endpoint, wall.pose, wall.dimensions):
+                    wall_corners = [
+                        wall.pose.transform_point(Point(-wall.dimensions[0] / 2, -wall.dimensions[1] / 2)),
+                        wall.pose.transform_point(Point(wall.dimensions[0] / 2, -wall.dimensions[1] / 2)),
+                        wall.pose.transform_point(Point(wall.dimensions[0] / 2, wall.dimensions[1] / 2)),
+                        wall.pose.transform_point(Point(-wall.dimensions[0] / 2, wall.dimensions[1] / 2)),
+                    ]
+                    for j in range(4):
+                        point1 = wall_corners[j]
+                        point2 = wall_corners[(j + 1) % 4]
+                        intra = line_intersection(Point(pose.x, pose.y), endpoint, point1, point2)
+                        if intra is not None:
+                            fin_distance = distance_between_points(Point(pose.x, pose.y), intra)
+                            if fin_distance < minimum_distance:
+                                minimum_distance = fin_distance
+
+            if minimum_distance < self.max_range:
+                self.measurements[i] = minimum_distance
+
         return self.measurements

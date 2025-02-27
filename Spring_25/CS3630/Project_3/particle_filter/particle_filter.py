@@ -1,3 +1,5 @@
+# Nicholas Stone
+
 import numpy as np
 from setting import *
 np.random.seed(RANDOM_SEED)
@@ -41,16 +43,23 @@ def particle_likelihood(robot_lidar_array: list[float], particle_lidar_array: np
         Returns:
             * (float): likelihood of the paritcle.
     """
-    # Initial likelihood of the particle
-    l = 1.0
+    likelihood = 1.0
 
-    # Maximum range of the lidar sensor
-    max_range = 1.0
+    maximum_range = 1.0
 
-    ######### START STUDENT CODE #########
+    for i in range(len(robot_lidar_array)):
+        robot_measure = robot_lidar_array[i]
+        particle_measure = particle_lidar_array[i]
 
-    ########## END STUDENT CODE ##########
-    return l
+        if robot_measure == float('inf'):
+            robot_measure = maximum_range
+        if particle_measure == float('inf'):
+            particle_measure = maximum_range
+
+        measurement_diff = robot_measure - particle_measure
+        likelihood *= math.exp(-(measurement_diff ** 2) / (2 * (LIDAR_RANGE_SIGMA ** 2)))
+
+    return likelihood
 
 # ------------------------------------------------------------------------
 def compute_particle_weights(particles:list[SE2], robot_lidar_measures:list[float], lidar_sim:LidarSim, env:Environment) -> list[float]:
@@ -65,9 +74,16 @@ def compute_particle_weights(particles:list[SE2], robot_lidar_measures:list[floa
         * (list[float]): importance weights corresponding to particles.
     """
     particle_weights = []
-    ######### START STUDENT CODE #########
-
-    ########## END STUDENT CODE ##########
+    for particle in particles:
+        particle_lidar_array = lidar_sim.read(particle)
+        
+        weights = particle_likelihood(robot_lidar_measures, particle_lidar_array)
+        particle_weights.append(weights)
+    
+    sum_of_weights = sum(particle_weights)
+    if sum_of_weights > 0:
+        particle_weights = [weight / sum_of_weights for weight in particle_weights]
+    
     return particle_weights
 
 # ------------------------------------------------------------------------
