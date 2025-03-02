@@ -1,0 +1,102 @@
+LC-3 OBJ FILE
+
+.TEXT
+3000
+17
+5020
+1221
+1423
+260B
+987F
+1921
+1903
+0804
+1242
+14A2
+1021
+0FF8
+2A03
+7140
+F025
+0014
+4000
+4000
+1
+????
+
+.SYMBOL
+ADDR | EXT | LABEL
+3004 |   0 | LOOP
+300C |   0 | DONE
+300F |   0 | N
+3010 |   0 | RESULT
+
+.LINKER_INFO
+
+.DEBUG
+# DEBUG SYMBOLS FOR LC3TOOLS
+
+LABEL  | INDEX
+LOOP   |   727
+DONE   |  1006
+N      |  1227
+RESULT |  1238
+====================
+LINE | ADDR | SOURCE
+   0 | ???? | ;;=============================================================\n
+   1 | ???? | ;; CS 2110 - Spring 2025\n
+   2 | ???? | ;; Homework 4 - Integer Square Root\n
+   3 | ???? | ;;=============================================================\n
+   4 | ???? | ;; Name: \n
+   5 | ???? | ;;=============================================================\n
+   6 | ???? | \n
+   7 | ???? | \n
+   8 | ???? | ;; Suggested Pseudocode (see PDF for explanation)\n
+   9 | ???? | ;;\n
+  10 | ???? | ;;  int L = 0;\n
+  11 | ???? | ;;  int a = 1;\n
+  12 | ???? | ;;  int d = 3;\n
+  13 | ???? | ;;\n
+  14 | ???? | ;;  while (a <= N) {\n
+  15 | ???? | ;;      a = a + d;  // Compute the next perfect square\n
+  16 | ???? | ;;      d = d + 2;  // Increase the difference between squares\n
+  17 | ???? | ;;      L = L + 1;  // Increment L\n
+  18 | ???? | ;;  }\n
+  19 | ???? | ;;\n
+  20 | ???? | ;;  mem[mem[RESULT]] = L;\n
+  21 | ???? |     \n
+  22 | ???? | .orig x3000\n
+  23 | 3000 |     AND R0, R0, #0   ; L = 0\n
+  24 | 3001 |     ADD R1, R0, #1   ; a = 1\n
+  25 | 3002 |     ADD R2, R0, #3   ; d = 3\n
+  26 | ???? | \n
+  27 | 3003 |     LD R3, N         ; Load N from memory\n
+  28 | ???? |     \n
+  29 | ???? | LOOP\n
+  30 | 3004 |     NOT R4, R1       ; Compute -a\n
+  31 | 3005 |     ADD R4, R4, #1\n
+  32 | 3006 |     ADD R4, R4, R3   ; Check if a > N\n
+  33 | 3007 |     BRN DONE         ; If a > N, exit loop\n
+  34 | ???? | \n
+  35 | 3008 |     ADD R1, R1, R2   ; a = a + d\n
+  36 | 3009 |     ADD R2, R2, #2   ; d = d + 2\n
+  37 | 300A |     ADD R0, R0, #1   ; L = L + 1\n
+  38 | 300B |     BR LOOP          ; Repeat the loop\n
+  39 | ???? | \n
+  40 | ???? | DONE\n
+  41 | 300C |     LD R5, RESULT    ; Load memory address for storing L\n
+  42 | 300D |     STR R0, R5, #0   ; Store L at RESULT location\n
+  43 | ???? |     \n
+  44 | 300E |     HALT\n
+  45 | ???? | \n
+  46 | ???? | ;; Do not rename or remove any existing labels\n
+  47 | ???? | ;; You may change the value of N for debugging\n
+  48 | 300F | N .fill 20\n
+  49 | 3010 | RESULT .fill x4000\n
+  50 | ???? | .end\n
+  51 | ???? | \n
+  52 | ???? | .orig x4000\n
+  53 | 4000 |     .blkw 1\n
+  54 | ???? | .end\n
+  55 | ???? | 
+====================
