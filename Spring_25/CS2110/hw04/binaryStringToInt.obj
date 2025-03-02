@@ -1,0 +1,152 @@
+LC-3 OBJ FILE
+
+.TEXT
+3000
+30
+5020
+2219
+6440
+0403
+1021
+1261
+0FFB
+56E0
+2212
+5920
+9B3F
+1B61
+1B40
+040A
+16C3
+6440
+2C0C
+9DBF
+1DA1
+1486
+16C2
+1261
+1921
+0FF2
+2A03
+7740
+F025
+5000
+4000
+0030
+4000
+1
+????
+5000
+6
+0031
+0031
+0030
+0030
+0030
+0000
+
+.SYMBOL
+ADDR | EXT | LABEL
+3002 |   0 | FIND_LENGTH
+3007 |   0 | DONE_LENGTH
+300A |   0 | CONVERT_LOOP
+3018 |   0 | DONE_CONVERT
+301B |   0 | BINARYSTRING
+301C |   0 | RESULTADDR
+301D |   0 | ASCIIDIG
+
+.LINKER_INFO
+
+.DEBUG
+# DEBUG SYMBOLS FOR LC3TOOLS
+
+LABEL        | INDEX
+FIND_LENGTH  |   749
+DONE_LENGTH  |   983
+CONVERT_LOOP |  1173
+DONE_CONVERT |  1747
+BINARYSTRING |  1977
+RESULTADDR   |  2002
+ASCIIDIG     |  2025
+====================
+LINE | ADDR | SOURCE
+   0 | ???? | ;;===============================================================\n
+   1 | ???? | ;; CS 2110 - Spring 2025\n
+   2 | ???? | ;; Homework 4 - Binary String to Int \n
+   3 | ???? | ;;=============================================================\n
+   4 | ???? | ;; Name: Nicholas Stone\n
+   5 | ???? | ;;===========================================================\n
+   6 | ???? | \n
+   7 | ???? | .orig x3000\n
+   8 | ???? | ;; Suggested Pseudocode (see PDF for explanation)\n
+   9 | ???? | ;;\n
+  10 | ???? | ;;  int length = 0;\n
+  11 | ???? | ;;  while (BINARYSTRING[length] != 0) {\n
+  12 | ???? | ;;      length++;\n
+  13 | ???? | ;;  }\n
+  14 | ???? | ;;  int result = 0;\n
+  15 | ???? | ;;  for (int i = 0; i < length; i++) {\n
+  16 | ???? | ;;      result = result << 1;\n
+  17 | ???? | ;;      result += BINARYSTRING[i] - 48;\n
+  18 | ???? | ;;  }\n
+  19 | ???? | ;;  mem[mem[RESULTADDR]] = result;\n
+  20 | ???? | \n
+  21 | ???? | \n
+  22 | ???? | ;; Step 1: Find the length of the binary string\n
+  23 | 3000 |     AND R0, R0, #0   ; length = 0\n
+  24 | 3001 |     LD R1, BINARYSTRING  ; Load the address of the binary string\n
+  25 | ???? | \n
+  26 | ???? | FIND_LENGTH\n
+  27 | 3002 |     LDR R2, R1, #0   ; Load character from BINARYSTRING[length]\n
+  28 | 3003 |     BRZ DONE_LENGTH  ; If it\'s null (\'\\0\'), stop\n
+  29 | 3004 |     ADD R0, R0, #1   ; length++\n
+  30 | 3005 |     ADD R1, R1, #1   ; Move to next character\n
+  31 | 3006 |     BR FIND_LENGTH   ; Repeat\n
+  32 | ???? | \n
+  33 | ???? | DONE_LENGTH\n
+  34 | 3007 |     AND R3, R3, #0   ; result = 0\n
+  35 | 3008 |     LD R1, BINARYSTRING  ; Reload address of the binary string\n
+  36 | 3009 |     AND R4, R4, #0   ; i = 0\n
+  37 | ???? | \n
+  38 | ???? | ;; Step 2: Convert the binary string to an integer\n
+  39 | ???? | CONVERT_LOOP\n
+  40 | 300A |     NOT R5, R4       ; Compute -i\n
+  41 | 300B |     ADD R5, R5, #1\n
+  42 | 300C |     ADD R5, R5, R0   ; Check if i < length\n
+  43 | 300D |     BRZ DONE_CONVERT ; If i == length, stop\n
+  44 | ???? | \n
+  45 | 300E |     ADD R3, R3, R3   ; result = result << 1 (shift left)\n
+  46 | 300F |     LDR R2, R1, #0   ; Load BINARYSTRING[i]\n
+  47 | 3010 |     LD R6, ASCIIDIG  ; Load ASCII \'0\' (48)\n
+  48 | 3011 |     NOT R6, R6       \n
+  49 | 3012 |     ADD R6, R6, #1   ; Compute -48\n
+  50 | 3013 |     ADD R2, R2, R6   ; Convert ASCII to integer (0 or 1)\n
+  51 | 3014 |     ADD R3, R3, R2   ; result += (BINARYSTRING[i] - \'0\')\n
+  52 | ???? | \n
+  53 | 3015 |     ADD R1, R1, #1   ; Move to next character\n
+  54 | 3016 |     ADD R4, R4, #1   ; i++\n
+  55 | 3017 |     BR CONVERT_LOOP  ; Repeat\n
+  56 | ???? | \n
+  57 | ???? | DONE_CONVERT\n
+  58 | 3018 |     LD R5, RESULTADDR ; Load memory location to store result\n
+  59 | 3019 |     STR R3, R5, #0   ; Store result in memory\n
+  60 | ???? | \n
+  61 | 301A |     HALT\n
+  62 | ???? | \n
+  63 | ???? | ;; Do not rename or remove any existing labels\n
+  64 | ???? | ;; You may change the value of LENGTH for debugging\n
+  65 | 301B | BINARYSTRING .fill x5000\n
+  66 | 301C | RESULTADDR .fill x4000\n
+  67 | 301D | ASCIIDIG .fill 48\n
+  68 | ???? | .end\n
+  69 | ???? | \n
+  70 | ???? | .orig x4000\n
+  71 | 4000 |     .blkw 1\n
+  72 | ???? | .end\n
+  73 | ???? | \n
+  74 | ???? | ;; You may change the value of the string for debugging\n
+  75 | ???? | .orig x5000\n
+  76 | 5000 |     .stringz \"11000\"\n
+  77 | ???? | .end\n
+  78 | ???? | 
+====================
