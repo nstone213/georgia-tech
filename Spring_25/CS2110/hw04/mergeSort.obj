@@ -1,0 +1,284 @@
+LC-3 OBJ FILE
+
+.TEXT
+3000
+47
+2C12
+2C11
+200D
+220D
+54A0
+260C
+1DBF
+7780
+1DBF
+7580
+1DBF
+7380
+1DBF
+7180
+4805
+F025
+4000
+5000
+0004
+F000
+C1C0
+1DBC
+7F82
+7B81
+1BA0
+6144
+6345
+1460
+0409
+56E0
+987F
+1921
+1804
+0806
+1004
+1001
+16E1
+0FF8
+56E0
+0E00
+7743
+1D60
+6B81
+6F82
+1DA3
+C1C0
+C1C0
+4000
+4
+0005
+0002
+0003
+0001
+5000
+4
+0005
+0002
+0003
+0001
+
+.SYMBOL
+ADDR | EXT | LABEL
+3010 |   0 | ARRAY
+3011 |   0 | BUF
+3012 |   0 | LENGTH
+3013 |   0 | STACK_PTR
+3014 |   0 | MERGESORT
+3015 |   0 | DIVIDE
+301E |   0 | DIVIDE_LOOP
+3026 |   0 | DIVIDE_BY_ZERO
+3028 |   0 | DIVIDE_END
+302E |   0 | MERGE
+
+.LINKER_INFO
+
+.DEBUG
+# DEBUG SYMBOLS FOR LC3TOOLS
+
+LABEL          | INDEX
+ARRAY          |  1035
+BUF            |  1059
+LENGTH         |  1083
+STACK_PTR      |  1103
+MERGESORT      |  1126
+DIVIDE         |  2004
+DIVIDE_LOOP    |  2935
+DIVIDE_BY_ZERO |  3495
+DIVIDE_END     |  3622
+MERGE          |  4800
+====================
+LINE | ADDR | SOURCE
+   0 | ???? | ;;=============================================================\n
+   1 | ???? | ;; CS 2110 - Spring 2025\n
+   2 | ???? | ;; Homework 4 - Merge Sort\n
+   3 | ???? | ;;=============================================================\n
+   4 | ???? | ;; Name: \n
+   5 | ???? | ;;=============================================================\n
+   6 | ???? | \n
+   7 | ???? | ;;  In this file, you must implement the \'MERGESORT\', \'MERGE\', and \'DIVIDE\' subroutines.\n
+   8 | ???? |     \n
+   9 | ???? | .orig x3000\n
+  10 | ???? |     ;; You do not need to write anything here\n
+  11 | 3000 |     LD R6, STACK_PTR\n
+  12 | ???? | \n
+  13 | ???? |     ;; Pushes arguments (starting address of array to sort,\n
+  14 | ???? |     ;;                   starting address of buffer,\n
+  15 | ???? |     ;;                   lower index to sort,\n
+  16 | ???? |     ;;                   upper index to sort)\n
+  17 | ???? |     ;;=============================================================\n
+  18 | ???? | \n
+  19 | 3001 |     LD R6, STACK_PTR\n
+  20 | 3002 |     LD R0, ARRAY\n
+  21 | 3003 |     LD R1, BUF\n
+  22 | 3004 |     AND R2, R2, 0   ; start = 0\n
+  23 | 3005 |     LD R3, LENGTH   ; end = length\n
+  24 | ???? |     \n
+  25 | 3006 |     ADD R6, R6, -1  ; push args\n
+  26 | 3007 |     STR R3, R6, 0\n
+  27 | 3008 |     ADD R6, R6, -1\n
+  28 | 3009 |     STR R2, R6, 0\n
+  29 | 300A |     ADD R6, R6, -1\n
+  30 | 300B |     STR R1, R6, 0\n
+  31 | 300C |     ADD R6, R6, -1\n
+  32 | 300D |     STR R0, R6, 0\n
+  33 | ???? |     \n
+  34 | 300E |     JSR MERGESORT\n
+  35 | ???? |     \n
+  36 | 300F |     HALT\n
+  37 | ???? |     \n
+  38 | 3010 |     ARRAY   .fill x4000\n
+  39 | 3011 |     BUF     .fill x5000\n
+  40 | 3012 |     LENGTH  .fill 4\n
+  41 | 3013 |     STACK_PTR .fill xF000\n
+  42 | ???? | \n
+  43 | ???? | MERGESORT   ;; Do not change this label! Treat this as like the name of the function in a function header\n
+  44 | ???? |             ;; Code your implementation for the MERGESORT subroutine here!\n
+  45 | ???? | \n
+  46 | ???? | ;; MERGESORT PSEUDOCODE: Pseudocode (see PDF for explanation and examples)   \n
+  47 | ???? | ;; MERGESORT (int[] arr, int[] buf, int start, int end) {\n
+  48 | ???? | ;;      if (start >= end) {\n
+  49 | ???? | ;;        return;\n
+  50 | ???? | ;;      }\n
+  51 | ???? | ;;      mid = DIVIDE(start + end, 2)\n
+  52 | ???? | ;;      MERGESORT(arr, buf, start, mid)\n
+  53 | ???? | ;;      MERGESORT(arr, buf, mid, end)\n
+  54 | ???? | ;;      MERGE(arr, buf, start, mid, end)\n
+  55 | ???? | ;;  }\n
+  56 | ???? |     \n
+  57 | ???? |     \n
+  58 | 3014 |     RET\n
+  59 | ???? |     \n
+  60 | ???? | ;;  DIVIDE Pseudocode (see PDF for explanation and examples)   \n
+  61 | ???? | ;;\n
+  62 | ???? | ;;  DIVIDE(int a, int b)\n
+  63 | ???? | ;;  {\n
+  64 | ???? | ;;      if (b == 0)\n
+  65 | ???? | ;;      {\n
+  66 | ???? | ;;          return 0;\n
+  67 | ???? | ;;      }\n
+  68 | ???? | ;;    \n
+  69 | ???? | ;;      int quotient = 0;\n
+  70 | ???? | ;;      while (a >= b)\n
+  71 | ???? | ;;      {\n
+  72 | ???? | ;;          a -= b;\n
+  73 | ???? | ;;          quotient++;\n
+  74 | ???? | ;;      }\n
+  75 | ???? | ;;    \n
+  76 | ???? | ;;      return quotient;\n
+  77 | ???? | ;;  }\n
+  78 | ???? | \n
+  79 | ???? | DIVIDE  ;; Do not change this label! Treat this this like the name of the function in a function header\n
+  80 | ???? |         ;; Code your implementation for the DIVIDE subroutine here!\n
+  81 | ???? |         \n
+  82 | ???? |         ;; Save registers and set up stack frame\n
+  83 | 3015 |         ADD R6, R6, -4      ; allocate space for return value, ret addr, old frame ptr, and 1 local var\n
+  84 | 3016 |         STR R7, R6, 2       ; save return address\n
+  85 | 3017 |         STR R5, R6, 1       ; save old frame pointer\n
+  86 | 3018 |         ADD R5, R6, 0       ; set up new frame pointer\n
+  87 | ???? |         \n
+  88 | ???? |         ;; Extract parameters from the stack\n
+  89 | 3019 |         LDR R0, R5, 4       ; Load a (first parameter)\n
+  90 | 301A |         LDR R1, R5, 5       ; Load b (second parameter)\n
+  91 | ???? |         \n
+  92 | ???? |         ;; Check if b == 0\n
+  93 | 301B |         ADD R2, R1, 0       ; Copy b to R2\n
+  94 | 301C |         BRz DIVIDE_BY_ZERO  ; If b == 0, handle division by zero\n
+  95 | ???? |         \n
+  96 | ???? |         ;; Initialize quotient = 0\n
+  97 | 301D |         AND R3, R3, 0       ; R3 = quotient = 0\n
+  98 | ???? |         \n
+  99 | ???? |         ;; Loop while a >= b\n
+ 100 | ???? | DIVIDE_LOOP\n
+ 101 | ???? |         ;; Check if a < b\n
+ 102 | 301E |         NOT R4, R1          ; R4 = ~b\n
+ 103 | 301F |         ADD R4, R4, 1       ; R4 = -b\n
+ 104 | 3020 |         ADD R4, R0, R4      ; R4 = a - b\n
+ 105 | 3021 |         BRn DIVIDE_END      ; If a < b, exit loop\n
+ 106 | ???? |         \n
+ 107 | ???? |         ;; a = a - b\n
+ 108 | 3022 |         ADD R0, R0, R4      ; a = a - b (using R4 which already contains a - b)\n
+ 109 | 3023 |         ADD R0, R0, R1      ; Fix the calculation (since we used a - b instead of directly subtracting)\n
+ 110 | ???? |         \n
+ 111 | ???? |         ;; quotient++\n
+ 112 | 3024 |         ADD R3, R3, 1       ; quotient++\n
+ 113 | ???? |         \n
+ 114 | ???? |         ;; Continue loop\n
+ 115 | 3025 |         BRnzp DIVIDE_LOOP\n
+ 116 | ???? |         \n
+ 117 | ???? | DIVIDE_BY_ZERO\n
+ 118 | ???? |         ;; Return 0 for division by zero\n
+ 119 | 3026 |         AND R3, R3, 0       ; R3 = 0\n
+ 120 | 3027 |         BRnzp DIVIDE_END\n
+ 121 | ???? |         \n
+ 122 | ???? | DIVIDE_END\n
+ 123 | ???? |         ;; Store result\n
+ 124 | 3028 |         STR R3, R5, 3       ; Store result in return value slot\n
+ 125 | ???? |         \n
+ 126 | ???? |         ;; Teardown stack frame\n
+ 127 | 3029 |         ADD R6, R5, 0       ; restore stack pointer\n
+ 128 | 302A |         LDR R5, R6, 1       ; restore old frame pointer\n
+ 129 | 302B |         LDR R7, R6, 2       ; restore return address\n
+ 130 | 302C |         ADD R6, R6, 3       ; pop off return value, ret addr, and old frame ptr\n
+ 131 | ???? |         \n
+ 132 | 302D |         RET                 ; return to caller\n
+ 133 | ???? | \n
+ 134 | ???? | \n
+ 135 | ???? | ;;  MERGE Pseudocode (see PDF for explanation and examples)\n
+ 136 | ???? | ;;  MERGE(int arr[], int buf[], int start, int mid, int end) {\n
+ 137 | ???? | ;;      int i = start;\n
+ 138 | ???? | ;;      int j = mid;\n
+ 139 | ???? | ;;      int k = start;\n
+ 140 | ???? | ;;      while (i < mid && j < end):\n
+ 141 | ???? | ;;          if arr[i] <= arr[j] {\n
+ 142 | ???? | ;;              buf[k] = arr[i];\n
+ 143 | ???? | ;;              k++;\n
+ 144 | ???? | ;;              i++;\n
+ 145 | ???? | ;;          } else {\n
+ 146 | ???? | ;;              buf[k] = arr[j];\n
+ 147 | ???? | ;;              k++;\n
+ 148 | ???? | ;;              j++;\n
+ 149 | ???? | ;;          }\n
+ 150 | ???? | ;;      }\n
+ 151 | ???? | ;;      while (i < mid) {\n
+ 152 | ???? | ;;          buf[k] = arr[i];\n
+ 153 | ???? | ;;          k++;\n
+ 154 | ???? | ;;          i++;\n
+ 155 | ???? | ;;      }\n
+ 156 | ???? | ;;      while (j < end) {\n
+ 157 | ???? | ;;          buf[k] = arr[j];\n
+ 158 | ???? | ;;          k++;\n
+ 159 | ???? | ;;          j++;\n
+ 160 | ???? | ;;      }\n
+ 161 | ???? | ;;      for (i = start; i < end; i++) {\n
+ 162 | ???? | ;;          arr[i] = buf[i];\n
+ 163 | ???? | ;;      }\n
+ 164 | ???? | ;;  }\n
+ 165 | ???? | \n
+ 166 | ???? | MERGE   ;; Do not change this label! Treat this as like the name of the function in a function header\n
+ 167 | ???? |         ;; Code your implementation for the MERGE subroutine here!\n
+ 168 | 302E |     RET\n
+ 169 | ???? | \n
+ 170 | ???? | .end\n
+ 171 | ???? |     \n
+ 172 | ???? | ;; You may change the values in these arrays for debugging. Remember to change the value of LENGTH as well. \n
+ 173 | ???? | .orig x4000\n
+ 174 | 4000 |     .fill 5 \n
+ 175 | 4001 |     .fill 2 \n
+ 176 | 4002 |     .fill 3 \n
+ 177 | 4003 |     .fill 1\n
+ 178 | ???? | .end\n
+ 179 | ???? | \n
+ 180 | ???? | .orig x5000\n
+ 181 | 5000 |     .fill 5 \n
+ 182 | 5001 |     .fill 2 \n
+ 183 | 5002 |     .fill 3 \n
+ 184 | 5003 |     .fill 1\n
+ 185 | ???? | .end\n
+ 186 | ???? | 
+====================

@@ -1,0 +1,149 @@
+LC-3 OBJ FILE
+
+.TEXT
+3000
+26
+5020
+2216
+6440
+56E0
+16E1
+2813
+993F
+1921
+18C4
+060A
+1A43
+6B40
+9CBF
+1DA1
+1D46
+0602
+1560
+10E0
+16E1
+0FF1
+2E02
+71C0
+F025
+4000
+5000
+0005
+4000
+1
+????
+5000
+5
+FFFF
+0002
+0007
+0003
+FFF8
+
+.SYMBOL
+ADDR | EXT | LABEL
+3005 |   0 | LOOP
+3012 |   0 | SKIP_UPDATE
+3014 |   0 | END_LOOP
+3017 |   0 | RESULT
+3018 |   0 | ARRAY
+3019 |   0 | LENGTH
+4000 |   0 | ANSWER
+
+.LINKER_INFO
+
+.DEBUG
+# DEBUG SYMBOLS FOR LC3TOOLS
+
+LABEL       | INDEX
+LOOP        |   908
+SKIP_UPDATE |  1626
+END_LOOP    |  1693
+RESULT      |  1942
+ARRAY       |  1961
+LENGTH      |  1979
+ANSWER      |  2016
+====================
+LINE | ADDR | SOURCE
+   0 | ???? | ;;=============================================================\n
+   1 | ???? | ;; CS 2110 - Spring 2025\n
+   2 | ???? | ;; Homework 4 - Find Min Index\n
+   3 | ???? | ;;=============================================================\n
+   4 | ???? | ;; Name: Nicholas Stone\n
+   5 | ???? | ;;=============================================================\n
+   6 | ???? | \n
+   7 | ???? | .orig x3000\n
+   8 | ???? | ;; Suggested Pseudocode (see PDF for explanation)\n
+   9 | ???? | ;;\n
+  10 | ???? | ;;  int minIndex = 0;\n
+  11 | ???? | ;;  int minValue = ARRAY[0];\n
+  12 | ???? | ;;  for (int i = 1; i < LENGTH; i++) {\n
+  13 | ???? | ;;      if (ARRAY[i] < minValue) {\n
+  14 | ???? | ;;          minValue = ARRAY[i];\n
+  15 | ???? | ;;          minIndex = i;\n
+  16 | ???? | ;;      }\n
+  17 | ???? | ;;  }\n
+  18 | ???? | ;;  mem[mem[RESULT]] = minIndex;\n
+  19 | ???? |     \n
+  20 | ???? |     ;; YOUR CODE HERE\n
+  21 | ???? |     ;; Initialize minIndex and minValue\n
+  22 | 3000 |     AND R0, R0, #0          ; R0 = minIndex = 0\n
+  23 | 3001 |     LD R1, ARRAY            ; R1 = base address of ARRAY\n
+  24 | 3002 |     LDR R2, R1, #0          ; R2 = minValue = ARRAY[0]\n
+  25 | 3003 |     AND R3, R3, #0          ; R3 = i = 1 (loop counter)\n
+  26 | 3004 |     ADD R3, R3, #1\n
+  27 | ???? | \n
+  28 | ???? |     ;; Loop through the array\n
+  29 | ???? |     LOOP\n
+  30 | 3005 |         LD R4, LENGTH       ; R4 = LENGTH\n
+  31 | 3006 |         NOT R4, R4\n
+  32 | 3007 |         ADD R4, R4, #1      ; R4 = -LENGTH\n
+  33 | 3008 |         ADD R4, R3, R4      ; R4 = i - LENGTH\n
+  34 | 3009 |         BRzp END_LOOP        ; If i >= LENGTH, exit loop\n
+  35 | ???? | \n
+  36 | ???? |         ;; Load ARRAY[i] into R5\n
+  37 | 300A |         ADD R5, R1, R3      ; R5 = address of ARRAY[i]\n
+  38 | 300B |         LDR R5, R5, #0      ; R5 = ARRAY[i]\n
+  39 | ???? | \n
+  40 | ???? |         ;; Compare ARRAY[i] with minValue\n
+  41 | 300C |         NOT R6, R2\n
+  42 | 300D |         ADD R6, R6, #1      ; R6 = -minValue\n
+  43 | 300E |         ADD R6, R5, R6      ; R6 = ARRAY[i] - minValue\n
+  44 | 300F |         BRzp SKIP_UPDATE     ; If ARRAY[i] >= minValue, skip update\n
+  45 | ???? | \n
+  46 | ???? |         ;; Update minValue and minIndex\n
+  47 | 3010 |         ADD R2, R5, #0      ; minValue = ARRAY[i]\n
+  48 | 3011 |         ADD R0, R3, #0      ; minIndex = i\n
+  49 | ???? | \n
+  50 | ???? |         SKIP_UPDATE\n
+  51 | 3012 |         ADD R3, R3, #1      ; i++\n
+  52 | 3013 |         BR LOOP\n
+  53 | ???? | \n
+  54 | ???? |     END_LOOP\n
+  55 | ???? | \n
+  56 | ???? |     ;; Store the result\n
+  57 | 3014 |     LD R7, RESULT           ; R7 = address of RESULT\n
+  58 | 3015 |     STR R0, R7, #0          ; mem[RESULT] = minIndex\n
+  59 | 3016 |     HALT\n
+  60 | ???? | \n
+  61 | ???? | ;; Do not rename or remove any existing labels\n
+  62 | ???? | ;; You may change the value of LENGTH for debugging\n
+  63 | 3017 | RESULT .fill x4000\n
+  64 | 3018 | ARRAY .fill x5000\n
+  65 | 3019 | LENGTH .fill 5\n
+  66 | ???? | .end\n
+  67 | ???? | \n
+  68 | ???? | .orig x4000\n
+  69 | 4000 |     ANSWER .blkw 1\n
+  70 | ???? | .end\n
+  71 | ???? | \n
+  72 | ???? | ;; You may change these values for debuggin\n
+  73 | ???? | .orig x5000\n
+  74 | 5000 |     .fill -1\n
+  75 | 5001 |     .fill 2 \n
+  76 | 5002 |     .fill 7 \n
+  77 | 5003 |     .fill 3 \n
+  78 | 5004 |     .fill -8 \n
+  79 | ???? | .end\n
+  80 | ???? | 
+====================

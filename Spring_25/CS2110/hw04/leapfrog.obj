@@ -1,0 +1,103 @@
+LC-3 OBJ FILE
+
+.TEXT
+3000
+26
+2015
+E3FE
+1440
+2613
+96FF
+16E1
+1883
+040D
+340F
+6A40
+0406
+7A80
+1261
+14A1
+1883
+0405
+0FF8
+5B60
+7A80
+2404
+C080
+F025
+0100
+FE00
+????
+0000
+
+.SYMBOL
+ADDR | EXT | LABEL
+3000 |   0 | FUNC_ADDR
+3009 |   0 | COPY_LOOP
+3011 |   0 | END_COPY
+3015 |   0 | HALT_PROGRAM
+3016 |   0 | INC
+3017 |   0 | STOP_ADDR
+3018 |   0 | START_COPY
+
+.LINKER_INFO
+
+.DEBUG
+# DEBUG SYMBOLS FOR LC3TOOLS
+
+LABEL        | INDEX
+FUNC_ADDR    |   279
+COPY_LOOP    |   673
+END_COPY     |  1096
+HALT_PROGRAM |  1291
+INC          |  1350
+STOP_ADDR    |  1373
+START_COPY   |  1396
+====================
+LINE | ADDR | SOURCE
+   0 | ???? | ;;=============================================================\n
+   1 | ???? | ;; CS 2110 - Spring 2025\n
+   2 | ???? | ;; Homework 4 - Leapfrog\n
+   3 | ???? | ;;=============================================================\n
+   4 | ???? | ;; Name: Nicholas Stone\n
+   5 | ???? | ;;=============================================================\n
+   6 | ???? | \n
+   7 | ???? | .ORIG x3000\n
+   8 | ???? | FUNC_ADDR\n
+   9 | 3000 |     LD R0, INC          ; INC into R0\n
+  10 | 3001 |     LEA R1, FUNC_ADDR    ; FUNC_ADDR into R1\n
+  11 | 3002 |     ADD R2, R1, R0      ; FUNC_ADDR + inc\n
+  12 | 3003 |     LD R3, STOP_ADDR   ; STOP_ADDR into R3\n
+  13 | 3004 |     NOT R3, R3          ; -(STOP_ADDR)\n
+  14 | 3005 |     ADD R3, R3, #1\n
+  15 | 3006 |     ADD R4, R2, R3      ; R2 - STOP_ADDR\n
+  16 | 3007 |     BRz HALT_PROGRAM   ; If copied adder >= STOP_ADDR, halt\n
+  17 | 3008 |     ST R2, START_COPY   ; Store start of copied program\n
+  18 | ???? | \n
+  19 | ???? | COPY_LOOP\n
+  20 | 3009 |     LDR R5, R1, #0      ; Load FUNC_ADDR into R5\n
+  21 | 300A |     BRz END_COPY        ; If 0, END_COPY\n
+  22 | 300B |     STR R5, R2, #0      ; Store current instruction at copied adder\n
+  23 | 300C |     ADD R1, R1, #1      ; Increment FUNC_ADDR\n
+  24 | 300D |     ADD R2, R2, #1      ; Increment copied adder\n
+  25 | 300E |     ADD R4, R2, R3      ; Recompute copied adder - STOP_ADDR\n
+  26 | 300F |     BRz HALT_PROGRAM   ; If copied adder >= STOP_ADDR, halt\n
+  27 | 3010 |     BR COPY_LOOP        ; Repeat loop\n
+  28 | ???? | \n
+  29 | ???? | END_COPY\n
+  30 | 3011 |     AND R5, R5, #0      ; 0 to R5\n
+  31 | 3012 |     STR R5, R2, #0      ; Store 0 at copied adder\n
+  32 | 3013 |     LD R2, START_COPY   ; Load start of copied program\n
+  33 | 3014 |     JMP R2             ; Jump to copied adder\n
+  34 | ???? | \n
+  35 | ???? | HALT_PROGRAM\n
+  36 | 3015 |     HALT                ; Halt\n
+  37 | ???? | \n
+  38 | ???? | ; Data values\n
+  39 | 3016 | INC        .FILL x0100\n
+  40 | 3017 | STOP_ADDR  .FILL xFE00\n
+  41 | 3018 | START_COPY  .BLKW 1\n
+  42 | 3019 | .FILL 0\n
+  43 | ???? | \n
+  44 | ???? | .END
+====================
