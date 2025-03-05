@@ -5,7 +5,28 @@
 ;; Name: Nicholas Stone
 ;;=============================================================
 
-.ORIG x3000
+.orig x3000
+;; Suggested Pseudocode (see PDF for explanation)
+;;
+;; inc = x0100
+;; func_addr = starting address of function
+;; copy_addr = func_addr + inc
+;; start_copy = copy_addr
+;; stop_addr = xFE00  
+;; if (start_copy - stop_addr == 0):
+;;      HALT
+;; curr = mem[func_addr]
+;; while (curr != 0) {
+;;      curr = mem[func_addr]
+;;      mem[copy_addr] = curr
+;;      func_addr++
+;;      copy_addr++
+;; }
+;; mem[copy_addr] = 0
+;; PC = start_copy
+;; .fill 0
+
+;; YOUR CODE HERE
 FUNC_ADDR
     LD R0, INC          ; INC into R0
     LEA R1, FUNC_ADDR   ; FUNC_ADDR into R1

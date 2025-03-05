@@ -18,45 +18,32 @@
 ;;  }
 ;;  mem[mem[RESULT]] = minIndex;
     
-    ;; YOUR CODE HERE
-    ;; Initialize minIndex and minValue
-    AND R0, R0, #0          ; R0 = minIndex = 0
-    LD R1, ARRAY            ; R1 = base address of ARRAY
-    LDR R2, R1, #0          ; R2 = minValue = ARRAY[0]
-    AND R3, R3, #0          ; R3 = i = 1 (loop counter)
-    ADD R3, R3, #1
-
-    ;; Loop through the array
-    LOOP
-        LD R4, LENGTH       ; R4 = LENGTH
-        NOT R4, R4
-        ADD R4, R4, #1      ; R4 = -LENGTH
-        ADD R4, R3, R4      ; R4 = i - LENGTH
-        BRzp END_LOOP        ; If i >= LENGTH, exit loop
-
-        ;; Load ARRAY[i] into R5
-        ADD R5, R1, R3      ; R5 = address of ARRAY[i]
-        LDR R5, R5, #0      ; R5 = ARRAY[i]
-
-        ;; Compare ARRAY[i] with minValue
-        NOT R6, R2
-        ADD R6, R6, #1      ; R6 = -minValue
-        ADD R6, R5, R6      ; R6 = ARRAY[i] - minValue
-        BRzp SKIP_UPDATE     ; If ARRAY[i] >= minValue, skip update
-
-        ;; Update minValue and minIndex
-        ADD R2, R5, #0      ; minValue = ARRAY[i]
-        ADD R0, R3, #0      ; minIndex = i
-
-        SKIP_UPDATE
-        ADD R3, R3, #1      ; i++
-        BR LOOP
-
-    END_LOOP
-
-    ;; Store the result
-    LD R7, RESULT           ; R7 = address of RESULT
-    STR R0, R7, #0          ; mem[RESULT] = minIndex
+;; YOUR CODE HERE
+AND R0, R0, #0
+LD R1, ARRAY
+LDR R2, R1, #0
+AND R3, R3, #0
+ADD R3, R3, #1
+FORLOOP
+    LD R4, LENGTH       ; R4 = LENGTH
+    NOT R4, R4
+    ADD R4, R4, #1      ; 2's complement
+    ADD R4, R3, R4      ; R4 = i - LENGTH
+    BRzp END_LOOP       ; If sum is positive or zero, exit
+    ADD R5, R1, R3      ; R5 = R1 + R3
+    LDR R5, R5, #0
+    NOT R6, R2
+    ADD R6, R6, #1      ; 2's complement
+    ADD R6, R5, R6      ; R6 = ARRAY[i] - minValue
+    BRzp SKIP           ; If sum is positive or zero, skip update
+    ADD R2, R5, #0
+    ADD R0, R3, #0      ; minIndex = i
+SKIP
+    ADD R3, R3, #1      ; increment
+    BR FORLOOP
+END_LOOP
+    LD R7, RESULT
+    STR R0, R7, #0
     HALT
 
 ;; Do not rename or remove any existing labels
