@@ -26,8 +26,8 @@ F025
 
 .SYMBOL
 ADDR | EXT | LABEL
-3004 |   0 | LOOP
-300C |   0 | DONE
+3004 |   0 | WHILELOOP
+300C |   0 | FIN
 300F |   0 | N
 3010 |   0 | RESULT
 
@@ -36,18 +36,18 @@ ADDR | EXT | LABEL
 .DEBUG
 # DEBUG SYMBOLS FOR LC3TOOLS
 
-LABEL  | INDEX
-LOOP   |   727
-DONE   |  1006
-N      |  1227
-RESULT |  1238
+LABEL     | INDEX
+WHILELOOP |   718
+FIN       |  1000
+N         |  1188
+RESULT    |  1199
 ====================
 LINE | ADDR | SOURCE
    0 | ???? | ;;=============================================================\n
    1 | ???? | ;; CS 2110 - Spring 2025\n
    2 | ???? | ;; Homework 4 - Integer Square Root\n
    3 | ???? | ;;=============================================================\n
-   4 | ???? | ;; Name: \n
+   4 | ???? | ;; Name: Nicholas Stone\n
    5 | ???? | ;;=============================================================\n
    6 | ???? | \n
    7 | ???? | \n
@@ -69,34 +69,29 @@ LINE | ADDR | SOURCE
   23 | 3000 |     AND R0, R0, #0   ; L = 0\n
   24 | 3001 |     ADD R1, R0, #1   ; a = 1\n
   25 | 3002 |     ADD R2, R0, #3   ; d = 3\n
-  26 | ???? | \n
-  27 | 3003 |     LD R3, N         ; Load N from memory\n
-  28 | ???? |     \n
-  29 | ???? | LOOP\n
-  30 | 3004 |     NOT R4, R1       ; Compute -a\n
-  31 | 3005 |     ADD R4, R4, #1\n
-  32 | 3006 |     ADD R4, R4, R3   ; Check if a > N\n
-  33 | 3007 |     BRN DONE         ; If a > N, exit loop\n
-  34 | ???? | \n
-  35 | 3008 |     ADD R1, R1, R2   ; a = a + d\n
-  36 | 3009 |     ADD R2, R2, #2   ; d = d + 2\n
-  37 | 300A |     ADD R0, R0, #1   ; L = L + 1\n
-  38 | 300B |     BR LOOP          ; Repeat the loop\n
-  39 | ???? | \n
-  40 | ???? | DONE\n
-  41 | 300C |     LD R5, RESULT    ; Load memory address for storing L\n
-  42 | 300D |     STR R0, R5, #0   ; Store L at RESULT location\n
-  43 | ???? |     \n
-  44 | 300E |     HALT\n
-  45 | ???? | \n
-  46 | ???? | ;; Do not rename or remove any existing labels\n
-  47 | ???? | ;; You may change the value of N for debugging\n
-  48 | 300F | N .fill 20\n
-  49 | 3010 | RESULT .fill x4000\n
-  50 | ???? | .end\n
-  51 | ???? | \n
-  52 | ???? | .orig x4000\n
-  53 | 4000 |     .blkw 1\n
-  54 | ???? | .end\n
-  55 | ???? | 
+  26 | 3003 |     LD R3, N         ; N\n
+  27 | ???? | WHILELOOP\n
+  28 | 3004 |     NOT R4, R1       ; -a\n
+  29 | 3005 |     ADD R4, R4, #1\n
+  30 | 3006 |     ADD R4, R4, R3   ; Check while condition\n
+  31 | 3007 |     BRN FIN          ; If negative, leave\n
+  32 | 3008 |     ADD R1, R1, R2   ; a = a + d\n
+  33 | 3009 |     ADD R2, R2, #2   ; d = d + 2\n
+  34 | 300A |     ADD R0, R0, #1   ; L = L + 1\n
+  35 | 300B |     BR WHILELOOP     ; Go to top of loop\n
+  36 | ???? | FIN\n
+  37 | 300C |     LD R5, RESULT    ; L\'s mem address\n
+  38 | 300D |     STR R0, R5, #0   ; Store L at RESULT\n
+  39 | 300E |     HALT\n
+  40 | ???? | \n
+  41 | ???? | ;; Do not rename or remove any existing labels\n
+  42 | ???? | ;; You may change the value of N for debugging\n
+  43 | 300F | N .fill 20\n
+  44 | 3010 | RESULT .fill x4000\n
+  45 | ???? | .end\n
+  46 | ???? | \n
+  47 | ???? | .orig x4000\n
+  48 | 4000 |     .blkw 1\n
+  49 | ???? | .end\n
+  50 | ???? | 
 ====================

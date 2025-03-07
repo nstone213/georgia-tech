@@ -51,14 +51,14 @@ MOD ;; Do not change this label! Treat this as like the name of the function in 
 ;;  }
 
 ADD R6, R6, -1
-ST R0, MOD_SAVE_R0
-ST R1, MOD_SAVE_R1
-ST R2, MOD_SAVE_R2
-ST R7, MOD_SAVE_R7
+ST R0, MOD_SAVE_R0      ; dividend, a
+ST R1, MOD_SAVE_R1      ; divisor, b
+ST R2, MOD_SAVE_R2      ; temp, a-b
+ST R7, MOD_SAVE_R7      ; this is the return address
 LDR R0, R6, 1    ; R0 = a
 LDR R1, R6, 2    ; R1 = b
 BRz MOD_DONE     ; If zero, return a
-MOD_LOOP
+MOD_LOOP  ; while loop for mod subroutine
     NOT R2, R1
     ADD R2, R2, 1    ; 2's complement
     ADD R2, R0, R2

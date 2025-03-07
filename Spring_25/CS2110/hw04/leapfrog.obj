@@ -2,28 +2,27 @@ LC-3 OBJ FILE
 
 .TEXT
 3000
-26
-2015
+25
+2014
 E3FE
 1440
-2613
+1CA0
+2611
 96FF
 16E1
 1883
-040D
-340F
+040B
 6A40
 0406
 7A80
 1261
 14A1
 1883
-0405
+0404
 0FF8
 5B60
 7A80
-2404
-C080
+C180
 F025
 0100
 FE00
@@ -33,12 +32,12 @@ FE00
 .SYMBOL
 ADDR | EXT | LABEL
 3000 |   0 | FUNC_ADDR
-3009 |   0 | COPY_LOOP
-3011 |   0 | END_COPY
-3015 |   0 | HALT_PROGRAM
-3016 |   0 | INC
-3017 |   0 | STOP_ADDR
-3018 |   0 | START_COPY
+3009 |   0 | COPYLOOP
+3011 |   0 | ENDCOPY
+3014 |   0 | HALT_PROGRAM
+3015 |   0 | INC
+3016 |   0 | STOP_ADDR
+3017 |   0 | START_COPY
 
 .LINKER_INFO
 
@@ -46,13 +45,13 @@ ADDR | EXT | LABEL
 # DEBUG SYMBOLS FOR LC3TOOLS
 
 LABEL        | INDEX
-FUNC_ADDR    |   279
-COPY_LOOP    |   673
-END_COPY     |  1096
-HALT_PROGRAM |  1291
-INC          |  1350
-STOP_ADDR    |  1373
-START_COPY   |  1396
+FUNC_ADDR    |   745
+COPYLOOP     |  1148
+ENDCOPY      |  1494
+HALT_PROGRAM |  1633
+INC          |  1656
+STOP_ADDR    |  1679
+START_COPY   |  1702
 ====================
 LINE | ADDR | SOURCE
    0 | ???? | ;;=============================================================\n
@@ -62,42 +61,58 @@ LINE | ADDR | SOURCE
    4 | ???? | ;; Name: Nicholas Stone\n
    5 | ???? | ;;=============================================================\n
    6 | ???? | \n
-   7 | ???? | .ORIG x3000\n
-   8 | ???? | FUNC_ADDR\n
-   9 | 3000 |     LD R0, INC          ; INC into R0\n
-  10 | 3001 |     LEA R1, FUNC_ADDR    ; FUNC_ADDR into R1\n
-  11 | 3002 |     ADD R2, R1, R0      ; FUNC_ADDR + inc\n
-  12 | 3003 |     LD R3, STOP_ADDR   ; STOP_ADDR into R3\n
-  13 | 3004 |     NOT R3, R3          ; -(STOP_ADDR)\n
-  14 | 3005 |     ADD R3, R3, #1\n
-  15 | 3006 |     ADD R4, R2, R3      ; R2 - STOP_ADDR\n
-  16 | 3007 |     BRz HALT_PROGRAM   ; If copied adder >= STOP_ADDR, halt\n
-  17 | 3008 |     ST R2, START_COPY   ; Store start of copied program\n
-  18 | ???? | \n
-  19 | ???? | COPY_LOOP\n
-  20 | 3009 |     LDR R5, R1, #0      ; Load FUNC_ADDR into R5\n
-  21 | 300A |     BRz END_COPY        ; If 0, END_COPY\n
-  22 | 300B |     STR R5, R2, #0      ; Store current instruction at copied adder\n
-  23 | 300C |     ADD R1, R1, #1      ; Increment FUNC_ADDR\n
-  24 | 300D |     ADD R2, R2, #1      ; Increment copied adder\n
-  25 | 300E |     ADD R4, R2, R3      ; Recompute copied adder - STOP_ADDR\n
-  26 | 300F |     BRz HALT_PROGRAM   ; If copied adder >= STOP_ADDR, halt\n
-  27 | 3010 |     BR COPY_LOOP        ; Repeat loop\n
-  28 | ???? | \n
-  29 | ???? | END_COPY\n
-  30 | 3011 |     AND R5, R5, #0      ; 0 to R5\n
-  31 | 3012 |     STR R5, R2, #0      ; Store 0 at copied adder\n
-  32 | 3013 |     LD R2, START_COPY   ; Load start of copied program\n
-  33 | 3014 |     JMP R2             ; Jump to copied adder\n
-  34 | ???? | \n
-  35 | ???? | HALT_PROGRAM\n
-  36 | 3015 |     HALT                ; Halt\n
-  37 | ???? | \n
-  38 | ???? | ; Data values\n
-  39 | 3016 | INC        .FILL x0100\n
-  40 | 3017 | STOP_ADDR  .FILL xFE00\n
-  41 | 3018 | START_COPY  .BLKW 1\n
-  42 | 3019 | .FILL 0\n
-  43 | ???? | \n
-  44 | ???? | .END
+   7 | ???? | .orig x3000\n
+   8 | ???? | ;; Suggested Pseudocode (see PDF for explanation)\n
+   9 | ???? | ;;\n
+  10 | ???? | ;; inc = x0100\n
+  11 | ???? | ;; func_addr = starting address of function\n
+  12 | ???? | ;; copy_addr = func_addr + inc\n
+  13 | ???? | ;; start_copy = copy_addr\n
+  14 | ???? | ;; stop_addr = xFE00  \n
+  15 | ???? | ;; if (start_copy - stop_addr == 0):\n
+  16 | ???? | ;;      HALT\n
+  17 | ???? | ;; curr = mem[func_addr]\n
+  18 | ???? | ;; while (curr != 0) {\n
+  19 | ???? | ;;      curr = mem[func_addr]\n
+  20 | ???? | ;;      mem[copy_addr] = curr\n
+  21 | ???? | ;;      func_addr++\n
+  22 | ???? | ;;      copy_addr++\n
+  23 | ???? | ;; }\n
+  24 | ???? | ;; mem[copy_addr] = 0\n
+  25 | ???? | ;; PC = start_copy\n
+  26 | ???? | ;; .fill 0\n
+  27 | ???? | \n
+  28 | ???? | ;; YOUR CODE HERE\n
+  29 | ???? | FUNC_ADDR\n
+  30 | 3000 |     LD R0, INC          ; INC into R0\n
+  31 | 3001 |     LEA R1, FUNC_ADDR   ; FUNC_ADDR into R1\n
+  32 | 3002 |     ADD R2, R1, R0      ; FUNC_ADDR + inc\n
+  33 | 3003 |     ADD R6, R2, #0      ; START_COPY\n
+  34 | 3004 |     LD R3, STOP_ADDR    ; STOP_ADDR into R3\n
+  35 | 3005 |     NOT R3, R3          ; beginning of if statement       \n
+  36 | 3006 |     ADD R3, R3, #1      ; 2\'s complement\n
+  37 | 3007 |     ADD R4, R2, R3      ; R2 - STOP_ADDR\n
+  38 | 3008 |     BRz HALT_PROGRAM    ; If sum is zero, exit\n
+  39 | ???? | COPYLOOP\n
+  40 | 3009 |     LDR R5, R1, #0      ; Load FUNC_ADDR into R5\n
+  41 | 300A |     BRz ENDCOPY        ; If 0, ENDCOPY (part of while loop)\n
+  42 | 300B |     STR R5, R2, #0\n
+  43 | 300C |     ADD R1, R1, #1      ; Increment FUNC_ADDR\n
+  44 | 300D |     ADD R2, R2, #1      ; Increment copied adder\n
+  45 | 300E |     ADD R4, R2, R3      ; copied adder - STOP_ADDR\n
+  46 | 300F |     BRz HALT_PROGRAM    ; If sum is zero, exit\n
+  47 | 3010 |     BR COPYLOOP\n
+  48 | ???? | ENDCOPY\n
+  49 | 3011 |     AND R5, R5, #0      ; 0 to R5\n
+  50 | 3012 |     STR R5, R2, #0      ; Store 0 at copied adder\n
+  51 | 3013 |     JMP R6              ; Jump to copied adder\n
+  52 | ???? | HALT_PROGRAM\n
+  53 | 3014 |     HALT\n
+  54 | ???? | \n
+  55 | 3015 | INC        .FILL x0100\n
+  56 | 3016 | STOP_ADDR  .FILL xFE00\n
+  57 | 3017 | START_COPY .BLKW 1\n
+  58 | 3018 | .fill 0\n
+  59 | ???? | \n
+  60 | ???? | .end
 ====================

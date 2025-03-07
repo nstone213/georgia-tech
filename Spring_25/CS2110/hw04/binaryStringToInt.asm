@@ -20,17 +20,17 @@
 ;;  mem[mem[RESULTADDR]] = result;
 
 ;; YOUR CODE HERE
-AND R0, R0, #0       ; R0 = 0
+AND R0, R0, #0       ; length = 0
 LD R1, BINARYSTRING  ; Load binarystring
 LENGTH
-    LDR R2, R1, #0
-    BRZ FIN_LENGTH  ; If '\0', stop
-    ADD R0, R0, #1   ; R0 + 1
+    LDR R2, R1, #0   ; gets index
+    BRZ FIN_LENGTH  ; If binary o, ie '\0', stop
+    ADD R0, R0, #1   ; R0 + 1, increments
     ADD R1, R1, #1   ; Increment
-    BR LENGTH
+    BR LENGTH       ; repeats
 FIN_LENGTH
-    AND R3, R3, #0   ; R3 = 0
-    LD R1, BINARYSTRING
+    AND R3, R3, #0   ; R3 = 0, result = 0
+    LD R1, BINARYSTRING   ; reloads binarystring
     AND R4, R4, #0   ; i = 0
 CONVERT_LOOP
     NOT R5, R4       ; -i

@@ -27,18 +27,18 @@
 ;;}
 
 ;; YOUR CODE HERE
-AND R0, R0, #0          ; R0 = 0
+AND R0, R0, #0          ; R0 = 0, length = 0
 LD R1, STRING           ; Load STRING to R1
 
-LOOP
+LOOP         ; iterates until loop reaches /0
     ADD R2, R1, R0      ; R2 = address of STRING
     LDR R3, R2, #0      ; R3 = STRING
-    BRz WHILE_DONE      ; If 0, exit to WHILE_DONE
+    BRz WHILE_DONE      ; If /0, exit to WHILE_DONE
     ADD R0, R0, #1      ; length adding 1
     BR LOOP
 WHILE_DONE
-    AND R2, R2, #0      ; R2 = 0
-    ADD R3, R0, #-1     ; R3 = R0 - 1
+    AND R2, R2, #0      ; start index goes back to 0
+    ADD R3, R0, #-1     ; end becomes length (R0) - 1
 SWAP_LOOP
     NOT R4, R3
     ADD R4, R4, #1      ; 2's complements R4
@@ -62,6 +62,6 @@ STRING .fill x4000
 .end
 
 ;; You may change the value of the string for debugging
-.orig x4000
+.orig x4000              ; head to x4000 for result
     .stringz "hello"
 .end

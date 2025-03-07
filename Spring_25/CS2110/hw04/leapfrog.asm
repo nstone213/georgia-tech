@@ -33,13 +33,13 @@ FUNC_ADDR
     ADD R2, R1, R0      ; FUNC_ADDR + inc
     ADD R6, R2, #0      ; START_COPY
     LD R3, STOP_ADDR    ; STOP_ADDR into R3
-    NOT R3, R3          
+    NOT R3, R3          ; beginning of if statement       
     ADD R3, R3, #1      ; 2's complement
     ADD R4, R2, R3      ; R2 - STOP_ADDR
     BRz HALT_PROGRAM    ; If sum is zero, exit
 COPYLOOP
     LDR R5, R1, #0      ; Load FUNC_ADDR into R5
-    BRz ENDCOPY        ; If 0, ENDCOPY
+    BRz ENDCOPY        ; If 0, ENDCOPY (part of while loop)
     STR R5, R2, #0
     ADD R1, R1, #1      ; Increment FUNC_ADDR
     ADD R2, R2, #1      ; Increment copied adder

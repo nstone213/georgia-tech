@@ -38,8 +38,8 @@ F025
 
 .SYMBOL
 ADDR | EXT | LABEL
-3002 |   0 | LENGTH_LOOP
-3007 |   0 | LENGTH_DONE
+3002 |   0 | LOOP
+3007 |   0 | WHILE_DONE
 3009 |   0 | SWAP_LOOP
 3016 |   0 | SWAP_DONE
 3017 |   0 | STRING
@@ -49,12 +49,12 @@ ADDR | EXT | LABEL
 .DEBUG
 # DEBUG SYMBOLS FOR LC3TOOLS
 
-LABEL       | INDEX
-LENGTH_LOOP |   800
-LENGTH_DONE |  1056
-SWAP_LOOP   |  1254
-SWAP_DONE   |  2027
-STRING      |  2146
+LABEL      | INDEX
+LOOP       |   735
+WHILE_DONE |   974
+SWAP_LOOP  |  1092
+SWAP_DONE  |  1589
+STRING     |  1708
 ====================
 LINE | ADDR | SOURCE
    0 | ???? | ;;=============================================================\n
@@ -85,59 +85,44 @@ LINE | ADDR | SOURCE
   25 | ???? | ;;      end--;\n
   26 | ???? | ;;}\n
   27 | ???? | \n
-  28 | ???? |     ;; YOUR CODE HERE\n
-  29 | ???? |     ;; Calculate the length of the string\n
-  30 | 3000 |     AND R0, R0, #0          ; R0 = length = 0\n
-  31 | 3001 |     LD R1, STRING           ; R1 = base address of STRING\n
-  32 | ???? | \n
-  33 | ???? |     LENGTH_LOOP\n
-  34 | 3002 |         ADD R2, R1, R0      ; R2 = address of STRING[length]\n
-  35 | 3003 |         LDR R3, R2, #0      ; R3 = STRING[length]\n
-  36 | 3004 |         BRz LENGTH_DONE      ; If STRING[length] == 0, exit loop\n
-  37 | 3005 |         ADD R0, R0, #1       ; length++\n
-  38 | 3006 |         BR LENGTH_LOOP\n
-  39 | ???? | \n
-  40 | ???? |     LENGTH_DONE\n
-  41 | ???? | \n
-  42 | ???? |     ;; Initialize start and end pointers\n
-  43 | 3007 |     AND R2, R2, #0          ; R2 = start = 0\n
-  44 | 3008 |     ADD R3, R0, #-1         ; R3 = end = length - 1\n
-  45 | ???? | \n
-  46 | ???? |     ;; Swap characters until start >= end\n
-  47 | ???? |     SWAP_LOOP\n
-  48 | 3009 |         NOT R4, R3\n
-  49 | 300A |         ADD R4, R4, #1      ; R4 = -end\n
-  50 | 300B |         ADD R4, R2, R4      ; R4 = start - end\n
-  51 | 300C |         BRzp SWAP_DONE       ; If start >= end, exit loop\n
-  52 | ???? | \n
-  53 | ???? |         ;; Load STRING[start] into R5\n
-  54 | 300D |         ADD R5, R1, R2      ; R5 = address of STRING[start]\n
-  55 | 300E |         LDR R6, R5, #0      ; R6 = STRING[start]\n
-  56 | ???? | \n
-  57 | ???? |         ;; Load STRING[end] into R7\n
-  58 | 300F |         ADD R7, R1, R3      ; R7 = address of STRING[end]\n
-  59 | 3010 |         LDR R4, R7, #0      ; R4 = STRING[end]\n
-  60 | ???? | \n
-  61 | ???? |         ;; Swap STRING[start] and STRING[end]\n
-  62 | 3011 |         STR R4, R5, #0      ; STRING[start] = STRING[end]\n
-  63 | 3012 |         STR R6, R7, #0      ; STRING[end] = STRING[start]\n
-  64 | ???? | \n
-  65 | ???? |         ;; Increment start and decrement end\n
-  66 | 3013 |         ADD R2, R2, #1      ; start++\n
-  67 | 3014 |         ADD R3, R3, #-1     ; end--\n
-  68 | 3015 |         BR SWAP_LOOP\n
-  69 | ???? | \n
-  70 | ???? |     SWAP_DONE\n
-  71 | 3016 |     HALT\n
-  72 | ???? | \n
-  73 | ???? | ;; Do not rename or remove any existing labels\n
-  74 | ???? | ;; You may change the value of LENGTH for debugging\n
-  75 | 3017 | STRING .fill x4000\n
-  76 | ???? | .end\n
-  77 | ???? | \n
-  78 | ???? | ;; You may change the value of the string for debugging\n
-  79 | ???? | .orig x4000\n
-  80 | 4000 |     .stringz \"hello\"\n
-  81 | ???? | .end\n
-  82 | ???? | 
+  28 | ???? | ;; YOUR CODE HERE\n
+  29 | 3000 | AND R0, R0, #0          ; R0 = 0, length = 0\n
+  30 | 3001 | LD R1, STRING           ; Load STRING to R1\n
+  31 | ???? | \n
+  32 | ???? | LOOP         ; iterates until loop reaches /0\n
+  33 | 3002 |     ADD R2, R1, R0      ; R2 = address of STRING\n
+  34 | 3003 |     LDR R3, R2, #0      ; R3 = STRING\n
+  35 | 3004 |     BRz WHILE_DONE      ; If /0, exit to WHILE_DONE\n
+  36 | 3005 |     ADD R0, R0, #1      ; length adding 1\n
+  37 | 3006 |     BR LOOP\n
+  38 | ???? | WHILE_DONE\n
+  39 | 3007 |     AND R2, R2, #0      ; start index goes back to 0\n
+  40 | 3008 |     ADD R3, R0, #-1     ; end becomes length (R0) - 1\n
+  41 | ???? | SWAP_LOOP\n
+  42 | 3009 |     NOT R4, R3\n
+  43 | 300A |     ADD R4, R4, #1      ; 2\'s complements R4\n
+  44 | 300B |     ADD R4, R2, R4      ; R4 = start - end\n
+  45 | 300C |     BRzp SWAP_DONE      ; If positive or zero, exit to swap_done\n
+  46 | 300D |     ADD R5, R1, R2      ; R5 = address of STRING[start]\n
+  47 | 300E |     LDR R6, R5, #0      ; R6 = STRING[start]\n
+  48 | 300F |     ADD R7, R1, R3      ; R7 = address of STRING[end]\n
+  49 | 3010 |     LDR R4, R7, #0      ; R4 = STRING[end]\n
+  50 | 3011 |     STR R4, R5, #0\n
+  51 | 3012 |     STR R6, R7, #0\n
+  52 | 3013 |     ADD R2, R2, #1      ; R2 + 1\n
+  53 | 3014 |     ADD R3, R3, #-1     ; R3 - 1\n
+  54 | 3015 |     BR SWAP_LOOP\n
+  55 | ???? | SWAP_DONE\n
+  56 | 3016 |     HALT\n
+  57 | ???? | \n
+  58 | ???? | ;; Do not rename or remove any existing labels\n
+  59 | ???? | ;; You may change the value of LENGTH for debugging\n
+  60 | 3017 | STRING .fill x4000\n
+  61 | ???? | .end\n
+  62 | ???? | \n
+  63 | ???? | ;; You may change the value of the string for debugging\n
+  64 | ???? | .orig x4000              ; head to x4000 for result\n
+  65 | 4000 |     .stringz \"hello\"\n
+  66 | ???? | .end\n
+  67 | ???? | 
 ====================
