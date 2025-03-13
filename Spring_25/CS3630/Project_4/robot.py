@@ -26,11 +26,7 @@ class Robot:
         setting.COORD_STATE = map_settings['coord_state']
         self.belief = np.zeros(len(self.states)) # Initialize belief state to zeros
 
-        ######### START STUDENT CODE #########
-        # Initialize belief to be certain about the initial state
-        state_idx = self.states.index(state)
-        self.belief[state_idx] = 1.0
-        ########## END STUDENT CODE ##########
+        self.belief = np.ones(len(self.states)) / len(self.states)
 
     def compute_state(self, completed_action) -> str:
         '''
@@ -40,34 +36,9 @@ class Robot:
         Output:
             next_state: str - the next state of the robot
         '''
-        next_state = None
-        ######### START STUDENT CODE #########
-        # Get the current state
-        current_state = self.state
-        
-        # Create a list of possible next states and their probabilities
-        next_states = []
-        probabilities = []
-        
-        # Check transition probabilities for each possible next state
-        for next_s in self.states:
-            # The key for the CPT is (current_state, action, next_state)
-            key = (current_state, completed_action, next_s)
-            prob = self.cpt.get(key, 0.0)
-            
-            # Only add states with non-zero probability
-            if prob > 0:
-                next_states.append(next_s)
-                probabilities.append(prob)
-        
-        # If there are no valid transitions, stay in the current state
-        if not next_states or sum(probabilities) == 0:
-            return current_state
-        
-        # Choose next state based on transition probabilities
-        next_state = random.choices(next_states, weights=probabilities, k=1)[0]
-        ########## END STUDENT CODE ##########
-
+        transitions = self.cpt[self.state][completed_action]
+        next_state_index = np.random.choice(len(self.states), p=transitions)
+        next_state = self.states[next_state_index]
         return next_state
     
     def compute_belief(self, completed_action) -> np.array:
@@ -78,28 +49,13 @@ class Robot:
         Output:
             new_belief: np.array - the new belief state of the robot
         '''
-        new_belief = None
-        ######### START STUDENT CODE #########
-        # Initialize new belief state
         new_belief = np.zeros(len(self.states))
         
-        # For each possible next state j
-        for j, next_state in enumerate(self.states):
-            # For each possible current state i
-            for i, current_state in enumerate(self.states):
-                # Get probability: P(next_state | current_state, action)
-                trans_prob = self.cpt.get((current_state, completed_action, next_state), 0.0)
-                
-                # Update belief: P(next_state) += P(current_state) * P(next_state | current_state, action)
-                new_belief[j] += self.belief[i] * trans_prob
+        for num, state in enumerate(self.states):
+            transitions = self.cpt[state][completed_action]
+            new_belief += self.belief[num] * np.array(transitions)
         
-        # Normalize the belief
-        if np.sum(new_belief) > 0:
-            new_belief = new_belief / np.sum(new_belief)
-        else:
-            # If all probabilities are zero, maintain current belief
-            new_belief = self.belief.copy()
-        ########## END STUDENT CODE ##########
+        new_belief /= np.sum(new_belief)
         
         return new_belief
 
