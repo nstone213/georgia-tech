@@ -5,7 +5,7 @@
  *
  * NOTE: NO ARRAY NOTATION IS ALLOWED IN THIS FILE
  *
- * @date 2025-03-xx
+ * @date 2025-03-23
  */
 
 #include "my_string.h"
@@ -25,11 +25,11 @@
  */
 size_t my_strlen(const char *s) {
     const char *ptr = s;
-    
+
     while (*ptr != '\0') {
         ptr++;
     }
-    
+
     return ptr - s;
 }
 
@@ -48,21 +48,21 @@ int my_strncmp(const char *s1, const char *s2, size_t n) {
     if (n == 0) {
         return 0;
     }
-    
+
     while (n > 0) {
         if (*s1 != *s2) {
             return *s1 - *s2;
         }
-        
+
         if (*s1 == '\0') {
             return 0;
         }
-        
+ 
         s1++;
         s2++;
         n--;
     }
-    
+
     return 0;
 }
 
@@ -76,7 +76,7 @@ int my_strncmp(const char *s1, const char *s2, size_t n) {
  */
 char *my_strncpy(char *dest, const char *src, size_t n) {
     char *ptr = dest;
-    
+
     while (n > 0) {
         if (*src != '\0') {
             *ptr = *src;
@@ -84,11 +84,11 @@ char *my_strncpy(char *dest, const char *src, size_t n) {
         } else {
             *ptr = '\0';
         }
-        
+
         ptr++;
         n--;
     }
-    
+
     return dest;
 }
 
@@ -103,21 +103,17 @@ char *my_strncpy(char *dest, const char *src, size_t n) {
  */
 char *my_strncat(char *dest, const char *src, size_t n) {
     char *ptr = dest;
-    
-    // Find the end of dest
+
     while (*ptr != '\0') {
         ptr++;
     }
-    
-    // Copy at most n bytes from src
+
     while (n > 0 && *src != '\0') {
         *ptr = *src;
         ptr++;
         src++;
         n--;
     }
-    
-    // Add null terminator
     *ptr = '\0';
     
     return dest;
@@ -134,14 +130,14 @@ char *my_strncat(char *dest, const char *src, size_t n) {
  */
 void *my_memset(void *str, int c, size_t n) {
     unsigned char *ptr = (unsigned char *)str;
-    unsigned char value = (unsigned char)c;
-    
+    unsigned char val = (unsigned char)c;
+
     while (n > 0) {
-        *ptr = value;
+        *ptr = val;
         ptr++;
         n--;
     }
-    
+
     return str;
 }
 
@@ -155,21 +151,19 @@ void reverse_string(char *str) {
     if (str == NULL || *str == '\0') {
         return;
     }
-    
+
     char *start = str;
     char *end = str;
     
-    // Find the end of the string
     while (*(end + 1) != '\0') {
         end++;
     }
-    
-    // Swap characters from start and end until they meet in the middle
+
     while (start < end) {
         char temp = *start;
         *start = *end;
         *end = temp;
-        
+
         start++;
         end--;
     }
@@ -187,18 +181,17 @@ int is_numeric(const char *str) {
     if (str == NULL) {
         return 0;
     }
-    
-    // Empty string case - should return true according to the test
+
     if (*str == '\0') {
         return 1;
     }
-    
+
     while (*str != '\0') {
         if (*str < '0' || *str > '9') {
             return 0;
         }
         str++;
     }
-    
+
     return 1;
 }
