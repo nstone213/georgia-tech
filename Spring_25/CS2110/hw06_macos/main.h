@@ -11,6 +11,8 @@ typedef struct {
     u16 color;
     int rowDelta;
     int colDelta;
+    int prevRow;
+    int prevCol;
 } Player;
 
 typedef struct {

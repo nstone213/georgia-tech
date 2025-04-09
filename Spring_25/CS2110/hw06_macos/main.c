@@ -15,11 +15,14 @@ enum gba_state {
 #define GOAL_WIDTH 30
 #define GOAL_HEIGHT 30
 
-#define TITLE_TEXT "Final"
+#define TITLE_TEXT "MVP!"
 #define TITLE_ROW_START 20
 #define TITLE_COL_START 80
 #define ANIMATION_SPEED 2
 #define ANIMATION_RANGE 20
+
+#define SPRITE_CENTER_ROW 120
+#define SPRITE_CENTER_COL 40
 
 void drawPlayer(Player *player) {
   drawImageDMA(player->row, player->col, player->width, player->height, garbage);
@@ -45,21 +48,27 @@ void drawTimer(GameState *gameState) {
 }
 
 void animateTitleText(int frameCount) {
+  static int prevOffset = 0;
+  
   int offset_frame = (frameCount / ANIMATION_SPEED) % (2 * ANIMATION_RANGE);
   if (offset_frame > ANIMATION_RANGE) {
     offset_frame = 2 * ANIMATION_RANGE - offset_frame;
   }
   
-  drawRectDMA(TITLE_ROW_START - ANIMATION_RANGE, TITLE_COL_START - 10, 140, 2 * ANIMATION_RANGE + 10, BLACK);
-  
-  drawString(TITLE_ROW_START + offset_frame - ANIMATION_RANGE, TITLE_COL_START, TITLE_TEXT, WHITE);
+  if (offset_frame != prevOffset) {
+    drawRectDMA(TITLE_ROW_START - ANIMATION_RANGE, TITLE_COL_START - 10, 140, 2 * ANIMATION_RANGE + 10, BLACK);
+    
+    drawString(TITLE_ROW_START + offset_frame - ANIMATION_RANGE, TITLE_COL_START, TITLE_TEXT, WHITE);
+    
+    prevOffset = offset_frame;
+  }
 }
 
 void animateTitleSprite(int frameCount) {
-  static int prevRow = 50;
-  static int prevCol = 40;
-  int cenRow = 50;
-  int cenCol = 40;
+  static int prevRow = SPRITE_CENTER_ROW;
+  static int prevCol = SPRITE_CENTER_COL;
+  int cenRow = SPRITE_CENTER_ROW;
+  int cenCol = SPRITE_CENTER_COL;
   int angle = (frameCount / ANIMATION_SPEED) % 40;
   int row, col;
 
@@ -104,7 +113,9 @@ int main(void) {
     .height = GARBAGE_HEIGHT,
     .color = WHITE,
     .rowDelta = 0,
-    .colDelta = 0
+    .colDelta = 0,
+    .prevRow = 80,
+    .prevCol = 40
   };
   
   GameState gameState = {
@@ -113,21 +124,22 @@ int main(void) {
   };
   
   int frameCount = 0;
-
   int titleInit = 0;
+  int needToRedrawGoal = 0;
 
   while (1) {
-    currButtons = BUTTONS;
-
+    prevButtons = currButtons;
+    
     waitForVBlank();
+    
+    currButtons = BUTTONS;
 
     switch (state) {
       case START:
         if (!titleInit) {
           fillScreenDMA(BLACK);
           
-          drawString(40, 60, "Press START to begin", WHITE);
-          drawString(60, 60, "Reach the goal to win!", WHITE);
+          drawString(75, 60, "Reach the goal to win!", WHITE);
           
           titleInit = 1;
           frameCount = 0;
@@ -152,7 +164,7 @@ int main(void) {
           drawTimer(&gameState);
           
           drawString(140, 5, "Use D-Pad to move", WHITE);
-          drawString(150, 5, "SELECT to reset", WHITE);
+          drawString(150, 5, "Backspace to reset", WHITE);
         }
         break;
         
@@ -162,6 +174,8 @@ int main(void) {
           
           player.row = 80;
           player.col = 40;
+          player.prevRow = 80;
+          player.prevCol = 40;
           
           titleInit = 0;
           
@@ -207,24 +221,38 @@ int main(void) {
             newCol = WIDTH - player.width;
           }
           
-          erasePlayer(&player);
-          
+          player.prevRow = player.row;
+          player.prevCol = player.col;
           player.row = newRow;
           player.col = newCol;
           
-          drawPlayer(&player);
+          needToRedrawGoal = checkCollision(&player, GOAL_ROW, GOAL_COL, GOAL_WIDTH, GOAL_HEIGHT) ||
+                            checkCollision(&player, player.prevRow, player.prevCol, player.width, player.height);
           
-          drawRectDMA(GOAL_ROW, GOAL_COL, GOAL_WIDTH, GOAL_HEIGHT, GREEN);
+          if (player.rowDelta != 0 && player.colDelta == 0) {
+            int eraseRow = (player.rowDelta < 0) ? player.prevRow + player.height - 1 : player.prevRow;
+            drawRectDMA(eraseRow, player.prevCol, player.width, 1, BLACK);
+          } else if (player.rowDelta == 0 && player.colDelta != 0) {
+            int eraseCol = (player.colDelta < 0) ? player.prevCol + player.width - 1 : player.prevCol;
+            drawRectDMA(player.prevRow, eraseCol, 1, player.height, BLACK); 
+          } else if (player.rowDelta != 0 && player.colDelta != 0) {
+            drawRectDMA(player.prevRow, player.prevCol, player.width, player.height, BLACK);
+          }
+          
+          if (needToRedrawGoal) {
+            drawRectDMA(GOAL_ROW, GOAL_COL, GOAL_WIDTH, GOAL_HEIGHT, GREEN);
+          }
+          
+          drawPlayer(&player);
           
           if (checkCollision(&player, GOAL_ROW, GOAL_COL, GOAL_WIDTH, GOAL_HEIGHT)) {
             state = WIN;
             
             gameState.score = gameState.timer;
             
-            fillScreenDMA(BLUE);
+            fillScreenDMA(BLACK);
             
             drawImageDMA(20, 20, GARBAGE_WIDTH, GARBAGE_HEIGHT, garbage);
-            drawImageDMA(140, 180, GARBAGE_WIDTH, GARBAGE_HEIGHT, garbage);
             
             drawString(60, 60, "YOU WIN!", WHITE);
             
@@ -232,7 +260,7 @@ int main(void) {
             snprintf(scoreStr, 30, "Your time: %d seconds", gameState.score);
             drawString(80, 60, scoreStr, WHITE);
             
-            drawString(120, 60, "SELECT to restart", WHITE);
+            drawString(120, 60, "Backspace to restart", WHITE);
           }
         }
         break;
@@ -243,13 +271,13 @@ int main(void) {
           
           player.row = 80;
           player.col = 40;
+          player.prevRow = 80;
+          player.prevCol = 40;
           
           titleInit = 0;
         }
         break;
     }
-
-    prevButtons = currButtons;
   }
 
   return 0;
